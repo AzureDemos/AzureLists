@@ -5,19 +5,19 @@ A traditional enterprise web application architecture, consisting of a website, 
 
 ![](http://www.azurelists.com/images/architecture101.png)
 
-### Key Features of the Design
+## Key Features of the Design
 
 *   Fully Managed PaaS Hosting
 *   Windows and Linux
 *   Simple Deployment and Scaling
 
-### Links
+## Links
 
 *   [Source Code on GitHub](https://github.com/AzureDemos/AzureLists/)
 *   [View Live Demo](#)
 
 
-### References
+## References
 
 *   [Azure App Service](https://azure.microsoft.com/en-gb/services/app-service/) - Quickly create powerful cloud apps using a fully managed platform
 *   [Azure SQL DB](https://azure.microsoft.com/en-gb/services/sql-database/) - The intelligent relational cloud database service
