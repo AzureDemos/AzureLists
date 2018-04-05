@@ -1,5 +1,5 @@
 ﻿body {
-    padding-bottom: 20px;
+
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,11 +21,26 @@ select,
 textarea {
     max-width: 280px;
 }*/
+.clear-fix {clear:both;}
 
-a {color:#444; cursor: pointer;}
+a {
+    color: #444;
+    cursor: pointer;
+}
 
+footer {
+    padding: 5px;
+    color: #ccc;
+    background: #333;
+    font-size:12px;
+    text-transform:uppercase;
+    text-align:center;
+}
 
-h1 {margin: 5px; font-size:25px;}
+h1 {
+    margin: 5px;
+    font-size: 25px;
+}
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -170,21 +185,41 @@ h1 {margin: 5px; font-size:25px;}
     background: #ebebeb;
     max-width: 350px;
     min-width: 350px !important;
-    z-index:999;
+    z-index:20;
+}
+
+#ui-datepicker-div, .ui-datepicker-calendar {
+    z-index: 999!important;
 }
 
 #wrapper.edit-task-collapsed #task {
     display: none;
 }
 
-#task .task-header {
-    height: 50px;
+#task .task-edit-header {
+    min-height: 50px;
     padding: 5px;
     border-bottom: solid 1px #ccc;
     margin-bottom: 5px;
+    clear: both;
 }
-#task .task-body{
+#task .task-edit-body{
     padding: 15px;
+}
+
+.blend {
+    user-select: none;
+    padding: 0;
+    margin: 0px 5px;
+    border: none;
+    background: #ebebeb;
+    text-rendering: optimizeLegibility;
+    text-decoration:none;
+    width: 280px;
+}
+
+.blend:focus {
+    border:none;
 }
 /* ---------------------------------------------------
     Tasks Lists
@@ -254,7 +289,9 @@ h1 {margin: 5px; font-size:25px;}
 
 @media (max-width: 1000px) {
 
-
+    .blend {
+        width: 180px;
+    }
     
     #wrapper #task {
         min-width: 250px !important;

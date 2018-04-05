@@ -16,6 +16,12 @@ $(document).ready(function () {
         $('#wrapper').addClass('edit-task-collapsed');
     });
 
+    //$(".datepicker").datepicker();
+
+});
+
+$(function () {
+    $("#datepicker").datepicker();
 });
 
 $(window).on('resize', function () {
