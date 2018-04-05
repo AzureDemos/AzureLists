@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Azure Lists";
+}
+
+
+<!-- Page Content Holder -->
+<div id="content">
+
+    <div class="content-header">
+        <h1>Inbox</h1>
+    </div>
+    <div class="content-body">
+        <form class="form-inline">
+            <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+            <div class="input-group">
+            <div class="input-group-addon">
+
+                <a><span class="glyphicon glyphicon-plus"></span></a>
+            </div>
+            <input id="addTask" type="text" class="form-control" placeholder="Add a to do...">
+            <div class="input-group-addon">
+                <a><span class="glyphicon glyphicon-star"></span></a>
+            </div>
+            </div>
+            </div>
+
+        </form>
+
+           
+
+            <div class="tasks-container">
+                <div class="task">
+                    <div class="task-complete">
+                        <a class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></a>
+                    </div>
+                    <a class="task-body">
+                        <p class="task-title">Get milk and bread</p>
+                        <p class="task-due">Today</p>
+                    </a>
+                    <div class="task-important">
+                        <a class="btn btn-danger btn-xs btn-task-important"><span class="glyphicon glyphicon-star"></span></a>
+                    </div>
+                </div>
+                <div class="task">
+                    <div class="task-complete">
+                        <a class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></a>
+                    </div>
+                    <a class="task-body">
+                        <p class="task-title">Create presentation on Azure</p>
+                        <p class="task-due">Today</p>
+                    </a>
+                    <div class="task-important">
+                        <a class="btn btn-default btn-xs btn-task-important"><span class="glyphicon glyphicon-star"></span></a>
+                    </div>
+                </div>
+                <div class="task">
+                    <div class="task-complete">
+                        <a class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></a>
+                    </div>
+                    <a class="task-body">
+                        <p class="task-title">Pickup Tom up from airport</p>
+                        <p class="task-due">Today</p>
+                    </a>
+                    <div class="task-important">
+                        <a class="btn btn-danger btn-xs btn-task-important"><span class="glyphicon glyphicon-star"></span></a>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

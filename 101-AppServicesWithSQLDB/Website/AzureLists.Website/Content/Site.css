@@ -1,0 +1,296 @@
+﻿body {
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+a {color:#444; cursor: pointer;}
+
+
+h1 {margin: 5px; font-size:25px;}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+.wrapper {
+    display: flex;
+    align-items: stretch;
+    background: #ebebeb;
+}
+
+#wrapper #sidebar {
+    min-width: 200px;
+    max-width: 200px;
+    background: #ebebeb;
+    color: #444;
+    transition: all 0.3s;
+    float: left;
+}
+
+#wrapper.sidebar-small #sidebar {
+    min-width: 50px;
+    max-width: 50px;
+    text-align: center;
+}
+
+    #wrapper.sidebar-small #sidebar ul.lists p {
+        display: none;
+    }
+
+    #wrapper.sidebar-small #sidebar .sidebar-header h3, #wrapper.sidebar-small #sidebar .CTAs {
+        display: none;
+    }
+
+    #wrapper.sidebar-small #sidebar .sidebar-header strong {
+        display: block;
+    }
+
+#sidebar ul li a {
+    text-align: left;
+}
+
+#wrapper.sidebar-small #sidebar ul li a {
+    padding: 20px 10px;
+    text-align: center;
+    font-size: 0.85em;
+}
+
+#wrapper.sidebar-small #sidebar ul li a i {
+    margin-right: 0;
+    display: block;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+#wrapper.sidebar-small #sidebar ul ul a {
+    padding: 10px !important;
+}
+
+#wrapper.sidebar-small #sidebar a[aria-expanded="false"]::before, #sidebar.small a[aria-expanded="true"]::before {
+    top: auto;
+    bottom: 5px;
+    right: 50%;
+    -webkit-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+}
+
+#wrapper #sidebar .sidebar-header {
+    height: 50px;
+    padding: 5px;
+    background: #2d2d37 !important;
+}
+
+
+#sidebar .sidebar-header a {
+    color: #fff;
+    font-size: 25px;
+}
+
+.sidebar-header img 
+{
+    width: 100px; 
+    display: inline-block;
+    margin-left: 20px;
+    margin-top:-10px;
+}
+
+#wrapper.sidebar-small #sidebar .sidebar-header img {
+    display: none;
+}
+
+#sidebar ul.lists {
+    padding: 20px 0;
+}
+
+#sidebar ul.lists p {
+   display: inline;
+}
+
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a i {
+    margin-right: 10px;
+}
+
+
+/* ---------------------------------------------------
+    SIDEBAR Content
+----------------------------------------------------- */
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all 0.3s;
+    background: #333;
+    color: #fff;
+}
+#content .content-header {
+    height: 50px;
+    padding: 5px;
+    background: #363643 !important;
+    color: #fff;
+}
+
+#wrapper #content .content-body {
+    padding: 10px;
+}
+
+#wrapper.edit-task-collapsed #content
+{
+
+}
+
+/* ---------------------------------------------------
+    SIDEBAR Content
+----------------------------------------------------- */
+#wrapper #task {
+    background: #ebebeb;
+    max-width: 350px;
+    min-width: 350px !important;
+    z-index:999;
+}
+
+#wrapper.edit-task-collapsed #task {
+    display: none;
+}
+
+#task .task-header {
+    height: 50px;
+    padding: 5px;
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 5px;
+}
+#task .task-body{
+    padding: 15px;
+}
+/* ---------------------------------------------------
+    Tasks Lists
+----------------------------------------------------- */
+
+
+.tasks-container {
+    margin: 15px 0px;
+}
+
+.task {
+    padding: 15px;
+    background: #fff;
+    clear: both;
+    height: 60px;
+    box-shadow: 0 0 2px #ccc;
+    text-align: left;
+    margin-bottom: 3px;
+}
+
+    .task:hover {
+        background: #ebe9e9;
+    }
+/*.task:nth-child(odd) {
+    background: #ebe9e9;
+}*/
+.task-important {
+    display: block;
+    float: right;
+    text-align: center;
+}
+
+.task-body, .task-body:hover {
+    display: block;
+    float: left;
+    text-decoration: none;
+    text-transform: none;
+    cursor: pointer;
+}
+
+.task-title {
+    color: #7d7d8f;
+    margin-bottom: 2px;
+    font-weight: 700;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.task-due {
+    font-size: 10px;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.task-complete {
+    float: left;
+    margin-right: 15px;
+}
+
+.btn-task-complete {
+}
+
+
+/* ---------------------------------------------------
+ Media Queries
+----------------------------------------------------- */
+
+@media (max-width: 1000px) {
+
+
+    
+    #wrapper #task {
+        min-width: 250px !important;
+        max-width: 250px;
+    }
+    
+    #wrapper #content {
+        margin-right: -250px;
+    }
+
+    #wrapper.edit-task-collapsed #content {
+        margin-right: 0px;
+    }
+
+}
+
+    @media (max-width: 550px) {
+
+        #wrapper #content {
+            display: none;
+        }
+
+        #wrapper.edit-task-collapsed #content {
+            display: block;
+        }
+
+        #wrapper #content {
+            margin-left: -200px;
+            z-index: 10;
+        }
+
+        #wrapper #sidebar {
+            z-index: 11;
+        }
+
+        #wrapper.sidebar-small #content {
+            margin-left: 0px;
+        }
+    }
