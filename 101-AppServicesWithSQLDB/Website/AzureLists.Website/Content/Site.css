@@ -48,7 +48,7 @@ h1 {
 .wrapper {
     display: flex;
     align-items: stretch;
-    background: #ebebeb;
+    background: #2d2d37;
 }
 
 #wrapper #sidebar {
@@ -66,9 +66,14 @@ h1 {
     text-align: center;
 }
 
-    #wrapper.sidebar-small #sidebar ul.lists p {
-        display: none;
-    }
+.sidebarCollapse, sidebarCollapse:hover {
+    text-decoration:none;
+}
+
+
+#wrapper.sidebar-small #sidebar ul.lists p {
+    display: none;
+}
 
     #wrapper.sidebar-small #sidebar .sidebar-header h3, #wrapper.sidebar-small #sidebar .CTAs {
         display: none;
@@ -159,7 +164,8 @@ h1 {
     width: 100%;
     min-height: 100vh;
     transition: all 0.3s;
-    background: #333;
+    /*background: #fff;*/
+    background-image: url('Images/bg2.jpeg');
     color: #fff;
 }
 #content .content-header {
@@ -179,13 +185,16 @@ h1 {
 }
 
 /* ---------------------------------------------------
-    SIDEBAR Content
+    Task Content
 ----------------------------------------------------- */
 #wrapper #task {
     background: #ebebeb;
+    background: #2d2d37;
+    color: #fff;
     max-width: 350px;
     min-width: 350px !important;
-    z-index:20;
+    z-index: 20;
+    min-height: 100vh;
 }
 
 #ui-datepicker-div, .ui-datepicker-calendar {
@@ -199,23 +208,41 @@ h1 {
 #task .task-edit-header {
     min-height: 50px;
     padding: 5px;
-    border-bottom: solid 1px #ccc;
+    padding-top: 10px;
+    border-bottom: solid 1px #444;
     margin-bottom: 5px;
     clear: both;
 }
+#task .task-edit-header a {
+ font-size: 15px;
+}
+
 #task .task-edit-body{
     padding: 15px;
 }
-
-.blend {
-    user-select: none;
-    padding: 0;
-    margin: 0px 5px;
-    border: none;
-    background: #ebebeb;
-    text-rendering: optimizeLegibility;
-    text-decoration:none;
-    width: 280px;
+.hideTask  {
+    margin:0px 3px;
+}
+#task .task-edit-body .btn-default {
+    background: #444;
+    color: #fff;
+    border-color: #333;
+    font-size: 15px;
+    padding:5px 10px
+}
+#task .task-edit-body .btn-default:hover {
+    background-color:#666;
+}
+    .blend {
+user-select: none;
+padding: 0;
+margin: 0px 5px;
+border: none;
+background: #2d2d37;
+color: #fff;
+text-rendering: optimizeLegibility;
+text-decoration: none;
+width: 270px;
 }
 
 .blend:focus {
@@ -235,9 +262,9 @@ h1 {
     background: #fff;
     clear: both;
     height: 60px;
-    box-shadow: 0 0 2px #ccc;
+    box-shadow: 0 0 2px #a19f9f;
     text-align: left;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 }
 
     .task:hover {
@@ -290,7 +317,7 @@ h1 {
 @media (max-width: 1000px) {
 
     .blend {
-        width: 180px;
+        width: 160px;
     }
     
     #wrapper #task {
