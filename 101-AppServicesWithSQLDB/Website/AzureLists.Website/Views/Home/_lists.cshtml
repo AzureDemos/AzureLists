@@ -1,49 +1,73 @@
 ﻿@{
     ViewBag.Title = "Azure Lists";
 }
-
+@model List<AzureLists.Website.Models.Api.List>
 <!-- Sidebar Holder -->
 <nav id="sidebar">
-      
+
     <div class="sidebar-header">
         <a class="sidebarCollapse">
-              
+
+            <span class="glyphicon glyphicon-menu-hamburger"></span>
             <span class="glyphicon glyphicon-align-justify"></span>
         </a>
         <img src="~/content/Images/logo.png" />
     </div>
 
     <ul class="list-unstyled lists">
-        <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
-                <i class="glyphicon glyphicon-envelope"></i>
-                <p>Inbox</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="glyphicon glyphicon-calendar"></i>
-                <p>This Week</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="glyphicon glyphicon-star"></i>
-                <p> Important</p>
-</a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="glyphicon glyphicon-th-list"></i>
-                <p>Groceries</p>
-</a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="glyphicon glyphicon-th-list"></i>
-                <p> Project Work</p>
-</a>
-        </li>
+        @foreach (var lst in Model)
+        {
+            <li class="active">
+                <a href="/?list=@lst.Id" >
+                    @if (lst.Name.ToLower().Trim() == "inbox")
+                    {
+                        <i class="glyphicon glyphicon-envelope"></i>
+                    }
+                    else
+                    {
+                        <i class="glyphicon glyphicon-th-list"></i>
+                    }
+                    <!--
+                    This Week  <i class="glyphicon glyphicon-calendar"></i>
+                    Important   <i class="glyphicon glyphicon-star"></i>
+                    -->
+                    <p>@lst.Name</p>
+                </a>
+            </li>
+        }
     </ul>
+
+        @*<ul class="list-unstyled lists">
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    <p>Inbox</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                    <p>This Week</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-star"></i>
+                    <p> Important</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-th-list"></i>
+                    <p>Groceries</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-th-list"></i>
+                    <p> Project Work</p>
+                </a>
+            </li>
+        </ul>*@
 
 </nav>

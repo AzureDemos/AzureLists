@@ -7,8 +7,8 @@ namespace AzureLists.Website.Models
 {
     public class ListsViewModel
     {
-      
-
+        public List<Api.List> Lists { get; set; }
+        public Api.List SelectedList { get; set; }
     }
 
  

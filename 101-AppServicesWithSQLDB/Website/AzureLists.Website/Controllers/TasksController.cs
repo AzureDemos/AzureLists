@@ -9,31 +9,24 @@ using System.Web.Mvc;
 
 namespace AzureLists.Website.Controllers
 {
-    public class HomeController : Controller
+    public class TasksController : Controller
     {
         private ListsService _listsService;
 
-        public HomeController()
+        public TasksController()
         {
             _listsService = new ListsService();
         }
 
-        public async Task<ActionResult> Index(string list = null)
+        public async Task<ActionResult> Index()
         {
             var vm = new ListsViewModel()
             {
                 Lists = await _listsService.GetAllLists()
             };
-            vm.SelectedList = (list != null) 
-                ? vm.Lists.SingleOrDefault(x => x.Id == list)
-                : vm.Lists[0];
-
-            if (vm.SelectedList == null)
-                return RedirectToAction("Index");
-
             return View(vm);
         }
 
-   
+     
     }
 }
