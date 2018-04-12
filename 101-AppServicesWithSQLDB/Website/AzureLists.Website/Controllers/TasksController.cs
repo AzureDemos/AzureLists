@@ -2,6 +2,7 @@
 using AzureLists.Website.Services;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -15,7 +16,7 @@ namespace AzureLists.Website.Controllers
 
         public TasksController()
         {
-            _listsService = new ListsService();
+            _listsService = new ListsService(ConfigurationManager.AppSettings["ApiUri"]);
         }
 
         public async Task<ActionResult> Index()

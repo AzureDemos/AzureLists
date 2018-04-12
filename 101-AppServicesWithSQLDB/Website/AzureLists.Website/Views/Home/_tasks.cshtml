@@ -7,108 +7,69 @@
 <div id="content">
 
     <div class="content-header">
-        <h1>@Model.Name</h1>
-        <a class="pull-right" data-toggle="modal" data-target="#exampleModal">
-            <span class="glyphicon glyphicon-option-vertical">stt</span>
-            sss
+        <h1 class="pull-left">@Model.Name</h1>
 
-            <span class="glyphicon glyphicon-star"></span>
+        <a class="pull-right edit-list">
+            <span class="glyphicon glyphicon-edit"></span>
         </a>
 
     </div>
     <div class="content-body">
-        <form class="form-inline">
-            <div class="form-group">
-                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-                <div class="input-group">
-                    <div class="input-group-addon">
-
-                        <a><span class="glyphicon glyphicon-plus"></span></a>
-                    </div>
-                    <input id="addTask" type="text" class="form-control" placeholder="Add a to do...">
-                    <div class="input-group-addon">
-                        <a><span class="glyphicon glyphicon-star"></span></a>
-                    </div>
-                </div>
-            </div>
-
-        </form>
-
-
-
-        <div class="tasks-container">
-            @foreach (var tsk in Model.Tasks)
+        <!-- Edit List Form -->
+        <div class="list-edit hide">
+            @using (Html.BeginForm("Edit", "Home", FormMethod.Post, new { @class = "form-inline" }))
             {
-                <div class="task">
-                    <div class="task-complete">
-                        <a class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></a>
-                    </div>
-                    <a class="task-body">
-                        <p class="task-title">@tsk.Title</p>
-                        <p class="task-due">Today</p>
-                    </a>
-                    <div class="task-important">
-                        <a class="btn btn-danger btn-xs btn-task-important"><span class="glyphicon glyphicon-star"></span></a>
-                    </div>
+                @Html.AntiForgeryToken()
+                <input name="Id" type="hidden" value="@Model.Id">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="Name" value="@Model.Name">
                 </div>
+                <button type="submit" class="btn btn-default btn-space pull-right">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </button>
+                <a class="btn btn-default edit-list btn-space pull-right">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
             }
-            @*<div class="task">
-                    <div class="task-complete">
-                        <a class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></a>
-                    </div>
-                    <a class="task-body">
-                        <p class="task-title">Get milk and bread</p>
-                        <p class="task-due">Today</p>
-                    </a>
-                    <div class="task-important">
-                        <a class="btn btn-danger btn-xs btn-task-important"><span class="glyphicon glyphicon-star"></span></a>
-                    </div>
-                </div>
-                <div class="task">
-                    <div class="task-complete">
-                        <a class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></a>
-                    </div>
-                    <a class="task-body">
-                        <p class="task-title">Create presentation on Azure</p>
-                        <p class="task-due">Today</p>
-                    </a>
-                    <div class="task-important">
-                        <a class="btn btn-default btn-xs btn-task-important"><span class="glyphicon glyphicon-star"></span></a>
-                    </div>
-                </div>
-                <div class="task">
-                    <div class="task-complete">
-                        <a class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></a>
-                    </div>
-                    <a class="task-body">
-                        <p class="task-title">Pickup Tom up from airport</p>
-                        <p class="task-due">Today</p>
-                    </a>
-                    <div class="task-important">
-                        <a class="btn btn-danger btn-xs btn-task-important"><span class="glyphicon glyphicon-star"></span></a>
-                    </div>
-                </div>*@
         </div>
-    </div>
-  
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+
+        <!-- View all tasks in list -->
+        <div class="list-view">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+
+                            <a><span class="glyphicon glyphicon-plus"></span></a>
+                        </div>
+                        <input id="addTask" type="text" class="form-control" placeholder="Add a to do...">
+                        <div class="input-group-addon">
+                            <a><span class="glyphicon glyphicon-star"></span></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+
+            </form>
+
+            <div class="tasks-container">
+                @foreach (var tsk in Model.Tasks)
+                {
+                    <div class="task">
+                        <div class="task-complete">
+                            <a class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></a>
+                        </div>
+                        <a class="task-body">
+                            <p class="task-title">@tsk.Title</p>
+                            <p class="task-due">Today</p>
+                        </a>
+                        <div class="task-important">
+                            <a class="btn btn-danger btn-xs btn-task-important"><span class="glyphicon glyphicon-star"></span></a>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
-    </div>
+        </div>
 </div>

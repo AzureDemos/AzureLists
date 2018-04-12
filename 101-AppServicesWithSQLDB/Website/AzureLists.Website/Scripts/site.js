@@ -16,6 +16,13 @@ $(document).ready(function () {
         $('#wrapper').addClass('edit-task-collapsed');
     });
 
+
+    $('.edit-list').on('click', function () {
+
+        $('.list-view').toggleClass('hide');
+        $('.list-edit').toggleClass('hide');
+    });
+
     //$(".datepicker").datepicker();
 
 });
