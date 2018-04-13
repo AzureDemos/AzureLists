@@ -2,8 +2,27 @@
 
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+    /* Set padding to keep content from hitting the edges */
+    .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -31,13 +50,29 @@ a {
     cursor: pointer;
 }
 
+.btn-dark {
+    background-color: #363643;
+    border-color: #2d2d37 !important;
+    color: #fff;
+}
+.btn-dark:hover {
+    background-color: #444;
+    color:#fff;
+}
+
 footer {
     padding: 5px;
     color: #ccc;
     background: #333;
-    font-size:12px;
-    text-transform:uppercase;
-    text-align:center;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    z-index:10;
 }
 
 h1 {
@@ -159,6 +194,14 @@ h1 {
     margin-right: 10px;
 }
 
+.create-list {
+    position: fixed;
+    bottom: 2px;
+    /* And if you want the div to be full-width: */
+    left: 2px;
+    width: 196px;
+  
+}
 
 /* ---------------------------------------------------
     SIDEBAR Content
@@ -188,7 +231,10 @@ h1 {
 
 #wrapper #content .content-body {
     padding: 10px;
+    overflow-y:scroll;
 }
+
+
 
 #wrapper.edit-task-collapsed #content
 {
@@ -204,7 +250,7 @@ h1 {
     color: #fff;
     max-width: 350px;
     min-width: 350px !important;
-    z-index: 20;
+    z-index: 9;
     min-height: 100vh;
 }
 
@@ -276,14 +322,14 @@ width: 270px;
     box-shadow: 0 0 2px #a19f9f;
     text-align: left;
     margin-bottom: 4px;
+    overflow: hidden;
+    display:block;
 }
 
     .task:hover {
         background: #ebe9e9;
     }
-/*.task:nth-child(odd) {
-    background: #ebe9e9;
-}*/
+
 .task-important {
     display: block;
     float: right;
@@ -319,28 +365,23 @@ width: 270px;
 
 .btn-task-complete {
 }
-/* ---------------------------------------------------
- Modals 
------------------------------------------------------ */
-.modal-dialog {
-    color:#fff;
+
+.show-completed {
+    margin: 10px 0px;
 }
-.modal-content {
-    background: #2d2d37;
+.tasks-completed {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    
 }
-.modal-body {
-    padding: 20px 20px 10px 20px;
-}
-.modal-footer {
-    border: none;
-    padding: 10px 20px;
-    margin: 0px;
-}
-/* ---------------------------------------------------
+    .tasks-completed p {
+text-decoration: line-through;
+    }
+    /* ---------------------------------------------------
  Media Queries
 ----------------------------------------------------- */
-@media (max-width: 1000px) {
-    .blend {
+    @media (max-width: 1000px) {
+        .blend {
         width: 160px;
     }
     
@@ -359,17 +400,43 @@ width: 270px;
 
 }
 
-@media (max-width: 700px) {
+@media (max-width: 850px) {
+    #wrapper .task-body {
+        max-width: 400px;
+    }
+
+    #wrapper.sidebar-small .task-body {
+        max-width: 450px;
+    }
     .task {
         height: 80px;
         padding: 5px;
     }
-        .task-body { max-width: 400px;
-    }
-    .task-complete {
-        margin-right: 5px;
-    }
 }
+
+@media (max-width: 700px) {
+    .task {
+        height: 70px;
+        padding: 5px;
+    }
+
+    #wrapper .task-body
+     {
+            max-width: 250px;
+            overflow: hidden;
+        }
+        #wrapper.sidebar-small .task-body {
+            max-width: 400px;
+        }
+        
+        .task-complete {
+            margin-right: 5px;
+        }
+
+        footer {
+            display: none;
+        }
+    }
 
     @media (max-width: 550px) {
 
@@ -395,9 +462,10 @@ width: 270px;
         }
 
         .task {
-            height: 80px;
+            height: 70px;
             padding: 7px;
             position: relative;
+
         }
 
         .task-complete {
@@ -414,7 +482,7 @@ width: 270px;
             float: none;
             position: absolute;
             left: 5px;
-            top: 50px;
+            top: 40px;
         }
 
         .task-body {
@@ -424,43 +492,36 @@ width: 270px;
             position: absolute;
             left: 35px;
             top: 5px;
-        }
-    }
-
-    @media (max-width: 450px) {
-        .task {
-            height: 100px;
-            padding: 7px;
-            position: relative;
-        }
-
-        .task-important {
-            top: 70px;
+      
         }
     }
 
 
 
-    @media (max-width: 2900px) {
-        #content {
-            background-image: url('Images/bg-3840.jpg');
-        }
-    }
 
-    @media (max-width: 1920px) {
-        #content {
-            background-image: url('Images/bg-2560.jpg');
-        }
-    }
 
-    @media (max-width: 1000px) {
-        #content {
-            background-image: url('Images/bg-1920.jpg');
-        }
+@media (max-width: 2700px) {
+    #content {
+        background-image: url('Images/bg-3840.jpg');
     }
+}
 
-    @media (max-width: 500px) {
-        #content {
-            background-image: url('Images/bg-1280.jpg');
-        }
+@media (max-width: 1500px) {
+    #content {
+        background-image: url('Images/bg-2560.jpg');
     }
+}
+
+@media (max-width: 1000px) {
+    #content {
+        background-image: url('Images/bg-1920.jpg');
+    }
+}
+
+@media (max-width: 700px) {
+    #content {
+        background-image: url('Images/bg-1280.jpg');
+    }
+}
+
+

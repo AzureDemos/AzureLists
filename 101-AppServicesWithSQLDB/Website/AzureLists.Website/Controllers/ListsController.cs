@@ -25,30 +25,36 @@ namespace AzureLists.Website.Controllers
         }
 
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Name")] Models.Api.List list)
         {
             if (ModelState.IsValid)
             {
-                await _listsService.CreateList(list);
-                return RedirectToAction("Index");
+                var result = await _listsService.CreateList(list);
+                if (result.success)
+                    return RedirectToAction("Index", "Home", new { list = result.newListId });
             }
+            return RedirectToAction("Index", "Home");
 
-            return View(list);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name")] Models.Api.List list)
+        public async Task<ActionResult> Update([Bind(Include = "Id,Name")] Models.Api.List list)
         {
             if (ModelState.IsValid)
             {
-                await _listsService.UpdateList(list);
-                return RedirectToAction("Index");
+                var existingList = await _listsService.GetList(list.Id); //Inlcudes all tasks which we are not changing
+                if (existingList != null)
+                {
+                    existingList.Name = list.Name;
+                    await _listsService.UpdateList(existingList);
+                    return RedirectToAction("Index", "Home", new { list = existingList.Id });
+                } 
             }
-
-            return View(list);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

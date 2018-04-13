@@ -3,9 +3,14 @@
 }
 @model AzureLists.Website.Models.ListsViewModel
 
-<div id="wrapper" class="wrapper edit-task-collapsed">
+
+
+<div id="wrapper" class="wrapper @(Model.SelectedTask == null ? "edit-task-collapsed":"")">
     @Html.Partial("~/Views/Home/_lists.cshtml", Model.Lists)
     @Html.Partial("~/Views/Home/_tasks.cshtml", Model.SelectedList)
-    @Html.Partial("~/Views/Home/_task.cshtml")
-    
+    @Html.Partial("~/Views/Home/_task.cshtml", Model.SelectedTask ?? new AzureLists.Website.Models.Api.Task())
+
 </div>
+
+
+        

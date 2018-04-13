@@ -47,7 +47,25 @@ namespace AzureLists.Website.Services
             return ReOrder(lst);
         }
 
-        public async Task<bool> CreateList(Models.Api.List list)
+        public async Task<Models.Api.List> GetList(string Id)
+        {
+            Models.Api.List lst = null;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await client.GetAsync(ListsResource + $"/{Id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var stringContent = await response.Content.ReadAsStringAsync();
+                    lst = JsonConvert.DeserializeObject<Models.Api.List>(stringContent);
+                }
+            }
+            return lst;
+        }
+
+        public async Task<(bool success, string newListId)> CreateList(Models.Api.List list)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -58,13 +76,14 @@ namespace AzureLists.Website.Services
                 HttpResponseMessage response = await client.PostAsync(ListsResource, content);
                 if (response.IsSuccessStatusCode)
                 {
-
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var outputList = JsonConvert.DeserializeObject<Models.Api.List>(responseString);
+                    return (success: true, newListId: outputList.Id);
                 }
-                return response.IsSuccessStatusCode;
+                else
+                    return (success: false, newListId:"");
             }
         }
-
-   
 
         public async Task<bool> UpdateList(Models.Api.List list)
         {
@@ -74,10 +93,66 @@ namespace AzureLists.Website.Services
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var json = JsonConvert.SerializeObject(list);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync(ListsResource, content);
+                HttpResponseMessage response = await client.PutAsync(ListsResource + $"/{list.Id}", content);
                 return response.IsSuccessStatusCode;
             }
         }
+
+
+        #region Tasks
+
+        public async Task<Models.Api.Task> GetTask(string listId, string taskId)
+        {
+            Models.Api.Task tsk = null;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await client.GetAsync(ListsResource + $"/{listId}/tasks/{taskId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var stringContent = await response.Content.ReadAsStringAsync();
+                    tsk = JsonConvert.DeserializeObject<Models.Api.Task>(stringContent);
+                }
+            }
+            return tsk;
+        }
+
+        public async Task<(bool success, string newTaskId)> AddTaskToList(string listId, Models.Api.Task task)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(task);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(ListsResource + $"/{listId}/tasks", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var outputList = JsonConvert.DeserializeObject<Models.Api.Task>(responseString);
+                    return (success: true, newTaskId: outputList.Id);
+                }
+                else
+                    return (success: false, newTaskId: "");
+            }
+        }
+
+        public async Task<bool> UpdateTask(string listId, Models.Api.Task task)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(task);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(ListsResource + $"/{listId}/tasks/{task.Id}", content);
+                return response.IsSuccessStatusCode;
+            }
+        }
+
+        #endregion
 
         private List<Models.Api.List> ReOrder(List<Models.Api.List> lst)
         {

@@ -7,6 +7,10 @@ namespace AzureLists.Website.Models.Api
 {
     public class List
     {
+        public List()
+        {
+            Tasks = new List<Task>();
+        }
         public string Id { get; set; }
         public string Name { get; set; }
 
