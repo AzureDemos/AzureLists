@@ -1,22 +1,25 @@
 ﻿@{
     ViewBag.Title = "Azure Lists";
 }
-@model AzureLists.Website.Models.Api.Task
+@model AzureLists.Website.Models.TaskViewModel
 
 <!-- Page Content Holder -->
-@if (!string.IsNullOrWhiteSpace(Model.Id))
+@if (!string.IsNullOrWhiteSpace(Model.ListId))
 {
 <div id="task">
 
-    @using (Html.BeginForm("Update", "Task", FormMethod.Post, new { @class = "form" }))
+    @using (Html.BeginForm("Update", "Tasks", new { @listId = Model.ListId }, FormMethod.Post, new { @class = "form" }))
     {
         @Html.AntiForgeryToken()
-        <input name="Id" type="hidden" value="@Model.Id">
+        <input name="Id" type="hidden" value="@Model.Task.Id">
         <div class="task-edit-header">
             <div class="form-group">
                 <a class="btn btn-default btn-xs btn-task-complete pull-left"><span class="glyphicon glyphicon-ok"></span></a>
-                <textarea rows="2" class="blend pull-left">@Model.Title</textarea>
-                <a class="btn btn-xs btn-task-important pull-left @(Model.Important ? "btn-danger":"btn-default")"><span class="glyphicon glyphicon-star"></span></a>
+                <textarea rows="3" name="title" class="blend pull-left">@Model.Task.Title</textarea>
+
+                <a id="edit-task-important" class="btn-xs btn @(Model.Task.Important ? "btn-danger":"btn-default")"><span class="glyphicon glyphicon-star"></span></a>
+                <input id="chk-edit-task-important" name="Important" type="hidden" value="@(Model.Task.Important ? "true":"false")">
+
             </div>
             <div class="clear-fix"></div>
         </div>
@@ -26,11 +29,18 @@
 
             <div class="form-group">
                 <label>Due</label>
-                <input type="datetime" id="datepicker" class="form-control datepicker" />
+                @if (Model.Task.DueDate.HasValue)
+                {
+                    <input type="datetime" name="DueDate" id="datepicker" class="form-control datepicker" value="@Model.Task.DueDate.Value.ToString("yyyy-MM-dd")" />
+                }
+                else
+                {
+                    <input type="datetime" id="datepicker" name="DueDate" class="form-control datepicker" />
+                }
             </div>
             <div class="form-group">
                 <label for="exampleInputFile">Notes</label>
-                <textarea class="form-control ">@Model.Notes</textarea>
+                <textarea name="Notes" class="form-control ">@Model.Task.Notes</textarea>
             </div>
 
 

@@ -154,11 +154,13 @@
     <Compile Include="Controllers\ListsController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Extensions\DateExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Api\Task.cs" />
     <Compile Include="Models\Api\List.cs" />
+    <Compile Include="Models\TaskViewModel.cs" />
     <Compile Include="Models\ListsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ListsService.cs" />

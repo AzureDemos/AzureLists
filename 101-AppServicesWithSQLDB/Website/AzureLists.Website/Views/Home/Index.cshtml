@@ -5,10 +5,10 @@
 
 
 
-<div id="wrapper" class="wrapper @(Model.SelectedTask == null ? "edit-task-collapsed":"")">
+<div id="wrapper" class="wrapper @(Request.Browser.IsMobileDevice == true ? "sidebar-small" : "" ) @(Model.SelectedTask == null ? "edit-task-collapsed":"")">
     @Html.Partial("~/Views/Home/_lists.cshtml", Model.Lists)
     @Html.Partial("~/Views/Home/_tasks.cshtml", Model.SelectedList)
-    @Html.Partial("~/Views/Home/_task.cshtml", Model.SelectedTask ?? new AzureLists.Website.Models.Api.Task())
+    @Html.Partial("~/Views/Home/_task.cshtml", Model.SelectedTask)
 
 </div>
 

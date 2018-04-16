@@ -21,25 +21,26 @@ namespace AzureLists.Website.Controllers
         
         public async Task<ActionResult> Index(string list = null, string task = null)
         {
-            var lists = await _listsService.GetAllLists();
-            var vm = new ListsViewModel() { Lists = lists };
+            ListsViewModel vm = await BuildViewModel(list, task);
 
-            //Set selected list
-            vm.SelectedList = (!string.IsNullOrWhiteSpace(list) && vm.Lists.Any()) 
-                ? vm.Lists.SingleOrDefault(x => x.Id == list)
-                : vm.Lists[0];
+            //if (!string.IsNullOrWhiteSpace(list) && vm.SelectedList == null)
+            //    return HttpNotFound();  // Don't do this as we refresh the demo data periodically
 
-            if (!string.IsNullOrWhiteSpace(list) && vm.SelectedList == null)
-                return HttpNotFound();
-
-            //Set selected task
-            if (!string.IsNullOrWhiteSpace(list) && vm.SelectedList != null && vm.SelectedList.Tasks != null && vm.SelectedList.Tasks.Any())
-                vm.SelectedTask = vm.SelectedList.Tasks.FirstOrDefault(x => x.Id == task);
-
-            if (!string.IsNullOrWhiteSpace(task) && vm.SelectedTask == null)
-                return HttpNotFound();
+            //if (!string.IsNullOrWhiteSpace(task) && vm.SelectedTask == null)
+            //    return HttpNotFound(); // Don't do this as we refresh the demo data periodically
 
             return View(vm);
+        }
+
+        public async Task<ActionResult> ThisWeek()
+        {
+            ListsViewModel vm = await BuildViewModel(listName:"This Week");
+            return View("Index", vm);
+        }
+        public async Task<ActionResult> Important()
+        {
+            ListsViewModel vm = await BuildViewModel(listName: "Important");
+            return View("Index", vm);
         }
 
         [HttpPost]
@@ -67,6 +68,37 @@ namespace AzureLists.Website.Controllers
             return View(list);
         }
 
+
+        private async Task<ListsViewModel> BuildViewModel(string list = null, string task = null, string listName = null)
+        {
+            var lists = await _listsService.GetAllLists();
+            var vm = new ListsViewModel() { Lists = lists };
+
+            //Set selected list
+            if (vm.Lists.Any())
+            {
+                if (!string.IsNullOrWhiteSpace(list))
+                    vm.SelectedList = vm.Lists.SingleOrDefault(x => x.Id == list);
+                else if (!string.IsNullOrWhiteSpace(listName))
+                    vm.SelectedList = vm.Lists.SingleOrDefault(x => x.Name == listName);
+
+                if  (vm.SelectedList == null)
+                    vm.SelectedList = vm.Lists[0];
+            }
+
+            //Set selected task view model
+            if (!string.IsNullOrWhiteSpace(list) && vm.SelectedList != null && vm.SelectedList.Tasks != null && vm.SelectedList.Tasks.Any())
+            {
+                var t = vm.SelectedList.Tasks.FirstOrDefault(x => x.Id == task);
+                if (t != null && vm.SelectedList != null)
+                {
+                    vm.SelectedTask.Task = t;
+                    vm.SelectedTask.ListId = vm.SelectedList.Id;
+                }
+            }
+
+            return vm;
+        }
 
 
     }

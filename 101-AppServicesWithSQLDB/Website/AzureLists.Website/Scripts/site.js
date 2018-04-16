@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    if ($(window).width() < 768) {
-        $('#wrapper').addClass('sidebar-small');
-    }
+   // if ($(window).width() < 768) {
+   //     $('#wrapper').addClass('sidebar-small');
+   // }
 
 
     $('.sidebarCollapse').on('click', function () {
@@ -87,13 +87,37 @@ $(document).ready(function () {
         $("#create-task-form").submit();
     })
 
+    $("#new-task-important").click(function () {
+        var current = $("#chk-new-task-important").val();
+        if (current == "false") {
+            $("#chk-new-task-important").val("true");
+        } else {
+            $("#chk-new-task-important").val("false");
+        }
+
+        $(this).toggleClass("btn-danger");
+        $(this).toggleClass("btn-default");
+    })
+
+    $("#edit-task-important").click(function () {
+        var current = $("#chk-edit-task-important").val();
+        if (current == "false") {
+            $("#chk-edit-task-important").val("true");
+        } else {
+            $("#chk-edit-task-important").val("false");
+        }
+
+        $(this).toggleClass("btn-danger");
+        $(this).toggleClass("btn-default");
+    })
+
     resize();
 });
 
 function resize() {
     var heights = window.innerHeight;
-    var newHeight = heights - 75;
-
+    var newHeight = heights - 40;
+    
     $(".content-body").css({ height: newHeight + "px" });
 }
 
@@ -105,7 +129,7 @@ window.onresize = function () {
 
 
 $(function () {
-    $("#datepicker").datepicker();
+    $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
 });
 
 $(window).on('resize', function () {

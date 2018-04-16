@@ -9,13 +9,17 @@
     <div class="content-header">
         <h1 class="pull-left">@Model.Name</h1>
 
-        <a class="pull-right edit-list">
-            <span class="glyphicon glyphicon-edit"></span>
-        </a>
+        @if (Model.Id != null)
+        {
+            <a class="pull-right edit-list">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+        }
+        
 
     </div>
     <div class="content-body">
-        <!-- Edit List Form -->
+        <!-- Edit / Create List Forms -->
         <div class="list-edit hide">
             @using (Html.BeginForm("Update", "Lists", FormMethod.Post, new { @class = "form-inline" }))
             {
@@ -63,9 +67,10 @@
                         <div class="input-group-addon">
                             <a id="create-task"><span class="glyphicon glyphicon-plus"></span></a>
                         </div>
-                        <input id="addTask" type="text" class="form-control" name="Title" placeholder="Add a to @Model.Name tasks...">
+                        <input id="addTask" type="text" class="form-control input-lg" name="Title" placeholder="Add a to @Model.Name tasks...">
                         <div class="input-group-addon">
-                            <a><span class="glyphicon glyphicon-star"></span></a>
+                            <a id="new-task-important" class="btn-sm btn btn-default"><span class="glyphicon glyphicon-star"></span></a>
+                            <input id="chk-new-task-important" name="Important" type="hidden" value="false">
                         </div>
                     </div>
                 </div>
@@ -83,7 +88,7 @@
                             </div>
                             <div class="task-body">
                                 <p class="task-title">@tsk.Title</p>
-                                <p class="task-due">Today</p>
+                                <p class="task-due">@tsk.DueDatePretty</p>
                             </div>
                             <div class="task-important">
                                 <span data-task="@tsk.Id" data-list="@Model.Id" class="btn btn-xs btn-task-important @(tsk.Important ? "btn-danger" : "btn-default")"><span class="glyphicon glyphicon-star"></span></span>
@@ -101,7 +106,7 @@
                                 </div>
                                 <div class="task-body">
                                     <p class="task-title">@tsk.Title</p>
-                                    <p class="task-due">Today</p>
+                                    <p class="task-due">@tsk.CompletedPretty</p>
                                 </div>
                                 <div class="task-important">
                                     <span data-task="@tsk.Id" data-list="@Model.Id" class="btn btn-xs btn-task-important @(tsk.Important ? "btn-danger" : "btn-default")"><span class="glyphicon glyphicon-star"></span></span>

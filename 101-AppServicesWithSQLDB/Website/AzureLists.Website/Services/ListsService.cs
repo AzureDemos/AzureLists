@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AzureLists.Website.Extensions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -157,20 +158,16 @@ namespace AzureLists.Website.Services
         private List<Models.Api.List> ReOrder(List<Models.Api.List> lst)
         {
             var inbox = lst.FirstOrDefault(x => x.Name.ToLower().Trim() == "inbox");
-            var thisWeek = lst.FirstOrDefault(x => x.Name.ToLower().Trim() == "this week");
-            var important = lst.FirstOrDefault(x => x.Name.ToLower().Trim() == "important");
+            List<Models.Api.Task> allTasks = new List<Models.Api.Task>();
+            foreach (var l in lst)
+                allTasks.AddRange(l.Tasks);
 
+         
             if (inbox != null) 
                 lst.Remove(inbox);
-            if (thisWeek != null)
-                lst.Remove(thisWeek);
-            if (important != null)
-                lst.Remove(important);
 
-            if (thisWeek != null)
-                lst.Insert(0, thisWeek);
-            if (important != null)
-                lst.Insert(0, important);
+            lst.Insert(0, new Models.Api.List() { Name = "This Week", Tasks = allTasks.Where(x => x.DueDate.HasValue && x.DueDate.Value <= DateTime.Now.ToStartOfDay().AddDays(7)).ToList() });
+            lst.Insert(0, new Models.Api.List() { Name = "Important", Tasks = allTasks.Where(x => x.Important).ToList() });
             if (inbox != null)
                 lst.Insert(0, inbox);
 

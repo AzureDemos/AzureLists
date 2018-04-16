@@ -21,7 +21,7 @@ namespace AzureLists.Website.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(string listId, [Bind(Include = "Title")] Models.Api.Task task)
+        public async Task<ActionResult> Create(string listId, [Bind(Include = "Title, Important")] Models.Api.Task task)
         {
             if (ModelState.IsValid)
             {
@@ -35,7 +35,7 @@ namespace AzureLists.Website.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update(string listId, [Bind(Include = "Id,Title")] Models.Api.Task task)
+        public async Task<ActionResult> Update(string listId, [Bind(Include = "Id,Title,DueDate,Notes,Important")] Models.Api.Task task)
         {
             if (ModelState.IsValid)
             {

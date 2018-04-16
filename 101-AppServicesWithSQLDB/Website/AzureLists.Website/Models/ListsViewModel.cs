@@ -10,7 +10,7 @@ namespace AzureLists.Website.Models
         public List<Api.List> Lists { get; set; }
         public Api.List SelectedList { get; set; }
 
-        public Api.Task SelectedTask { get; set; }
+        public TaskViewModel SelectedTask { get; set; } = new TaskViewModel();
     }
 
  

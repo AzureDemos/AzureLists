@@ -15,27 +15,37 @@
     <ul class="list-unstyled lists">
         @foreach (var lst in Model)
         {
-            <li class="active">
+        <li class="active">
+            @if (lst.Name.ToLower().Trim() == "inbox")
+            {
                 <a href="/?list=@lst.Id">
-                    @if (lst.Name.ToLower().Trim() == "inbox")
-                    {
-                                <i class="glyphicon glyphicon-envelope"></i>
-                    }
-                    else if (lst.Name.ToLower().Trim() == "this week")
-                    {
-                                <i class="glyphicon glyphicon-calendar"></i>
-                    }
-                    else if (lst.Name.ToLower().Trim() == "important")
-                    {
-                                <i class="glyphicon glyphicon-star"></i>
-                    }
-                    else
-                    {
-                                <i class="glyphicon glyphicon-th-list"></i>
-                    }
+                    <i class="glyphicon glyphicon-envelope"></i>
                     <p>@lst.Name</p>
                 </a>
-            </li>
+            }
+            else if (lst.Name.ToLower().Trim() == "this week")
+            {
+                <a href="/home/thisweek">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                    <p>@lst.Name</p>
+                </a>
+            }
+            else if (lst.Name.ToLower().Trim() == "important")
+            {
+                <a href="/home/important">
+                    <i class="glyphicon glyphicon-star"></i>
+                    <p>@lst.Name</p>
+                </a>
+            }
+            else
+            {
+                <a href="/?list=@lst.Id">
+                    <i class="glyphicon glyphicon-th-list"></i>
+                    <p>@lst.Name</p>
+                </a>
+            }
+
+</li>
         }
     </ul>
     <a class="create-list btn btn-primary btn-dark "><span class="glyphicon glyphicon-plus"></span> Create New List</a>
