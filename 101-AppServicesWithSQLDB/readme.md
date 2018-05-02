@@ -23,7 +23,7 @@ Enterprise | Complies with ISO standards, SOC2 accounting standards, PCI securit
 Open Source | Supports WordPress, Umbraco, Joomla, Drupal and more
 
 
-**If the app requires specific thing to be installed on the machine then this may not be appropriate. A few things to consider like making sure log files don’t write to local drives may be required.*
+**If the app requires specific programs to be installed on the machine then this may not be appropriate. A few things to consider like making sure log files don’t write to local drives may be required.*
 				
 
 ## Containers				
