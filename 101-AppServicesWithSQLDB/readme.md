@@ -24,7 +24,17 @@ Open Source | Supports WordPress, Umbraco, Joomla, Drupal and more
 
 
 **If the app requires specific programs to be installed on the machine then this may not be appropriate. A few things to consider like making sure log files don’t write to local drives may be required.*
-				
+
+Key Features | Azure SQL Database
+-- | --	
+Tooling | Use the tools you already have. SQLCMD or the SQL Server Management Studio
+Maintenance | Fully managed and high availability, no physical administration needed
+Compatibility | Compatibility with most SQL Server features 
+Scaling | Various service plans and elasticity. Elastic Pool enables higher resource utilisation efficiency with all the databases within an elastic pool sharing predefined resources 
+Migration | Sync and migration tools available like the SQL Azure Federation Data Migration Wizard
+Hybrid | Azure Hybrid Benefit allows you to use your on-premises Windows Server or SQL Server licenses with Software Assurance to save big when migrating workloads
+Security | Advanced built-in protection and security features
+
 
 ## Containers				
 You can also deploy and run containerised web apps and take advantage of all the additional features of App Service. More information can be found at [https://azure.microsoft.com/en-gb/services/app-service/containers/](https://azure.microsoft.com/en-gb/services/app-service/containers/)	
