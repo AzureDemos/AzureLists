@@ -41,8 +41,8 @@ You can also deploy and run containerised web apps and take advantage of all the
 
 ## Links
 
-*   [Source Code on GitHub](https://github.com/AzureDemos/AzureLists/)
-*   [View Live Demo](#)
+*   [Source Code on GitHub](https://github.com/AzureDemos/AzureLists/tree/master/101-AppServicesWithSQLDB/)
+*   [View Live Demo](http://demo.azurelists.com)
 
 
 ## References
