@@ -5,8 +5,8 @@ A traditional enterprise web application architecture, consisting of a website, 
 
 ![](http://www.azurelists.com/images/architecture101.png)
 
-Key Points | App Service Offering	
---- | ---	
+Key Features | App Service Offering	
+-- | --	
 Support Languages | .NET, .NET Core, Java, Ruby, Node.js, PHP, or Python	
 Platforms |	Windows, Linux
 Maintenance | Fully Managed, High availability with auto-patching	
