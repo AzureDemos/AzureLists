@@ -37,10 +37,10 @@ Security | Advanced built-in protection and security features
 
 ## Application Performance Management
 Application Insights provides rich performance monitoring, powerful alerting and easy-to-consume dashboards. Interactive queries and full-text search make finding the information you need quick and easy.
-Live Metrics | Interactive Data Analytics
--- | --	
-![](http://www.azurelists.com/images/AppInsights.png) | ![](http://www.azurelists.com/images/AppInsightsQuery.png)	
 
+| Live Metrics | Interactive Data Analytics |
+--- | ---	
+| ![](http://www.azurelists.com/images/AppInsights.png) | ![](http://www.azurelists.com/images/AppInsightsQuery.png) |
 
 ## Containers				
 You can also deploy and run containerised web apps and take advantage of all the additional features of App Service. More information can be found at [https://azure.microsoft.com/en-gb/services/app-service/containers/](https://azure.microsoft.com/en-gb/services/app-service/containers/)	
