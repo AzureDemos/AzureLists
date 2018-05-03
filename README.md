@@ -14,7 +14,7 @@ Each example demonstrates a different way in which the same application can be b
 ## Try it out Yourself
 A working demo of the application features can be found at [http://demo.azurelists.com](http://demo.azurelists.com). The contents of the demo site are reset periodically.
 
-## Archecture Components
+## Architecture Components
 Each example will demonstrate how to build and host the application using various cloud technologies, but three main compontents will always remain constant.
 ![](http://www.azurelists.com/images/ArchitectureOverview.png)
 
