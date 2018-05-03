@@ -44,9 +44,24 @@ You can also deploy and run containerised web apps and take advantage of all the
 *   [Source Code on GitHub](https://github.com/AzureDemos/AzureLists/tree/master/101-AppServicesWithSQLDB/)
 *   [View Live Demo](http://demo.azurelists.com)
 
+## How to Deploy the Examples
+
+Both the API and Website solutions can be deployed via Visual Studio Publish tools, and the API project contains SQL DB project which can also be right click deployed.
+![](http://www.azurelists.com/images/deploySQLDB.png)
+
+### DevOps
+*   [Guide to setting up automated builds for each project using VSTS](https://docs.microsoft.com/en-us/vsts/build-release/apps/aspnet/build-aspnet-4?view=vsts&tabs=vsts)
+*   [Guide to creating a release in VSTS](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/deploy-webdeploy-webapps?view=vsts)
 
 ## References
 
 *   [Azure App Service](https://azure.microsoft.com/en-gb/services/app-service/) - Quickly create powerful cloud apps using a fully managed platform
 *   [Azure SQL DB](https://azure.microsoft.com/en-gb/services/sql-database/) - The intelligent relational cloud database service
 *   [Swagger Open API](https://swagger.io/) - API developer tools for the OpenAPI Specification (OAS)
+
+## Disclaimer
+The implementation in this project is intended for reference purpose only.
+
+## Minimum Requirements
+.Net 4.6.2
+
