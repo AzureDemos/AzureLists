@@ -39,7 +39,7 @@ Security | Advanced built-in protection and security features
 Application Insights provides rich performance monitoring, powerful alerting and easy-to-consume dashboards. Interactive queries and full-text search make finding the information you need quick and easy.
 
 | Live Metrics | Interactive Data Analytics |
---- | ---	
+| --- | ---	|
 | ![](http://www.azurelists.com/images/AppInsights.png) | ![](http://www.azurelists.com/images/AppInsightsQuery.png) |
 
 ## Containers				
