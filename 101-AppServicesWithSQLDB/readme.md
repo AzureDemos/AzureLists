@@ -55,7 +55,7 @@ You can also deploy and run containerised web apps and take advantage of all the
 Both the API and Website solutions can be deployed via Visual Studio Publish tools, and the API project contains SQL DB project which can also be right click deployed.
 ![](http://www.azurelists.com/images/deploySQLDB.png)
 
-### DevOps
+## DevOps
 *   [Guide to setting up automated builds for each project using VSTS](https://docs.microsoft.com/en-us/vsts/build-release/apps/aspnet/build-aspnet-4?view=vsts&tabs=vsts)
 *   [Guide to creating a release in VSTS](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/deploy-webdeploy-webapps?view=vsts)
 
