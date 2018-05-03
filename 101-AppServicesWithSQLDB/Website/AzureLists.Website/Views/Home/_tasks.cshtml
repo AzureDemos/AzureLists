@@ -84,14 +84,14 @@
                     {
                         <a class="task" href="/?list=@(Model.Id)&task=@tsk.Id">
                             <div class="task-complete">
-                                <span data-task="@tsk.Id" data-list="@Model.Id" class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></span>
+                                <span data-task="@tsk.Id" data-list="@tsk.ListId" class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></span>
                             </div>
                             <div class="task-body">
                                 <p class="task-title">@tsk.Title</p>
                                 <p class="task-due">@tsk.DueDatePretty</p>
                             </div>
                             <div class="task-important">
-                                <span data-task="@tsk.Id" data-list="@Model.Id" class="btn btn-xs btn-task-important @(tsk.Important ? "btn-danger" : "btn-default")"><span class="glyphicon glyphicon-star"></span></span>
+                                <span data-task="@tsk.Id" data-list="@tsk.ListId" class="btn btn-xs btn-task-important @(tsk.Important ? "btn-danger" : "btn-default")"><span class="glyphicon glyphicon-star"></span></span>
                             </div>
                         </a>
                     }
@@ -102,14 +102,14 @@
                         {
                             <a class="task" href="/?list=@(Model.Id)&task=@tsk.Id">
                                 <div class="task-complete">
-                                    <span data-task="@tsk.Id" data-list="@Model.Id" class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></span>
+                                    <span data-task="@tsk.Id" data-list="@tsk.ListId" class="btn btn-default btn-xs btn-task-complete"><span class="glyphicon glyphicon-ok"></span></span>
                                 </div>
                                 <div class="task-body">
                                     <p class="task-title">@tsk.Title</p>
                                     <p class="task-due">@tsk.CompletedPretty</p>
                                 </div>
                                 <div class="task-important">
-                                    <span data-task="@tsk.Id" data-list="@Model.Id" class="btn btn-xs btn-task-important @(tsk.Important ? "btn-danger" : "btn-default")"><span class="glyphicon glyphicon-star"></span></span>
+                                    <span data-task="@tsk.Id" data-list="@tsk.ListId" class="btn btn-xs btn-task-important @(tsk.Important ? "btn-danger" : "btn-default")"><span class="glyphicon glyphicon-star"></span></span>
                                 </div>
                             </a>
                         }

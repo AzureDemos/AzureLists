@@ -9,6 +9,7 @@ namespace AzureLists.Website.Models.Api
 {
     public class Task
     {
+        public string ListId { get; set; }
         public string Id { get; set; }
         public string Title { get; set; } = "";
         public string Notes { get; set; } = "";

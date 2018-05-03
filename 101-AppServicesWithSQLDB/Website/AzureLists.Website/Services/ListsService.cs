@@ -160,9 +160,13 @@ namespace AzureLists.Website.Services
             var inbox = lst.FirstOrDefault(x => x.Name.ToLower().Trim() == "inbox");
             List<Models.Api.Task> allTasks = new List<Models.Api.Task>();
             foreach (var l in lst)
+            {
+                foreach (var t in l.Tasks)
+                    t.ListId = l.Id;
                 allTasks.AddRange(l.Tasks);
+            }
+                
 
-         
             if (inbox != null) 
                 lst.Remove(inbox);
 
