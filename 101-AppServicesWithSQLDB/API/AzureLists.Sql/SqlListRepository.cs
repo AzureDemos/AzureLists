@@ -30,7 +30,7 @@ namespace AzureLists.Sql
             string condition = this.BuildCondition<T>(id, important, completed, parameters);
             Type type = typeof(T);
             string query = type == typeof(Library.List) ?
-                $"SELECT {this.BuildSelect(typeof(Library.List), typeof(Library.Task))} FROM List List LEFT JOIN Task Task ON l.Id = t.ListId {condition}" :
+                $"SELECT {this.BuildSelect(typeof(Library.List), typeof(Library.Task))} FROM List List LEFT JOIN Task Task ON List.Id = Task.ListId {condition}" :
                 $"SELECT {this.BuildSelect(typeof(T))} FROM {type.Name} {condition}";
 
             Action<SqlDataReader, List<T>> action = this.GetTypeUnpacker<T>();
