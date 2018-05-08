@@ -74,16 +74,15 @@ As mentioned in the about us section, this site is focusing on the architecture,
 ![](https://www.azurelists.com/images/101Codeflow.png)
 
 ### Why .Net?
-Firstly, in this initial example we’ve chosen to use the full .Net frame work, we could of course have written the app in many languages or even .Net Core 2.1. As the .Net framework widely used in Enterprise organisations, we felt this was the best choice for our initial example, but in future architecture we will move into .Net Core for a cross platform applications. 
+Firstly, in this initial example we’ve chosen to use the full .Net frame work, we could of course have written the app in many languages or even .Net Core 2.1. As the .Net framework is widely used in Enterprise organisations, we felt this was the best choice for our initial example, but in future examples we will move into .Net Core for a cross platform applications. 
 
 ### What about SPA’s?
-The website simple design would fit nicely with into a JavaScript single page app, which is something that we will cover in future examples (function proxies), but again for this initial we have stayed with the ASP.NET MVC framework. 
+The websites simple design would fit nicely into a JavaScript single page app. This is something that we will cover in future examples (function proxies), but again for this initial one, we have stayed with the ASP.NET MVC framework. 
 
 ### A word on database connectivity 
-Many SQL based applications make use or object relations mappers or ORM’s for short. This is a hot topic and there is much debate over when to use and ORM or even a micro ORM and when to not use one. We’ve chosen to use an Interface to abstract the repository layer and to write an implementation for each data store. 
+Many SQL based applications make use of object relational mappers or ORM’s for short. This is a hot topic and there is much debate over when to use an ORM, a micro ORM or whether one at all. We’ve chosen to use an Interface to abstract the repository layer and to write an implementation for each data store. 
 
-Going forward we will demonstrate how we many be able to use the same ORM for different data stores. 
-
+Going forward we will demonstrate how to use the same ORM for different data stores.
 
 ## Disclaimer
 The implementation in this project is intended for reference purpose only.
