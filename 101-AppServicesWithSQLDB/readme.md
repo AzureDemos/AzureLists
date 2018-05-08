@@ -50,7 +50,7 @@ As mentioned in the about us section, this site is focusing on the architecture,
 ![](https://www.azurelists.com/images/101Codeflow.png)
 
 ### Why .Net?
-Firstly, in this initial example we’ve chosen to use the full .Net frame work, we could of course have written the app in many languages or even .Net Core 2.1. As the .Net framework is widely used in Enterprise organisations, we felt this was the best choice for our initial example, but in future examples we will move into .Net Core for a cross platform applications. 
+In this initial example we’ve chosen to use the full .Net frame work, we could of course have written the app in many languages or even .Net Core 2.1. As the .Net framework is widely used in Enterprise organisations, we felt this was the best choice for our initial example, but in future examples we will move into .Net Core for a cross platform applications. 
 
 ### What about SPA’s?
 The websites simple design would fit nicely into a JavaScript single page app. This is something that we will cover in future examples (function proxies), but again for this initial one, we have stayed with the ASP.NET MVC framework. 
