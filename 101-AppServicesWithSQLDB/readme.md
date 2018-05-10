@@ -3,7 +3,7 @@
 
 A traditional enterprise web application architecture, consisting of a website, Restful API and SQL. Both the website and API are deployed into Azure App Service, a fully managed platform to run and scale applications on Windows or Linux. Supported Languages include NET, .NET Core, Java, Ruby, Node.js, PHP and Python. Azure’s fully managed Azure SQL Database service, offers built-in intelligence that learns app patterns and adapts to maximise performance, reliability and data protection.
 
-![](https://www.azurelists.com/images/architecture101.png)
+[![App Service with SQL Architecture](https://www.azurelists.com/images/architecture101.png)](https://www.azurelists.com/images/architecture101.png)
 
 
 Key Features | App Service Offering	
@@ -40,14 +40,15 @@ Application Insights provides rich performance monitoring, powerful alerting and
 
 | Live Metrics | Interactive Data Analytics |
 | --- | ---	|
-| ![](https://www.azurelists.com/images/AppInsights.png) | ![](https://www.azurelists.com/images/AppInsightsQuery.png) |
+| [![App Insights Live Metrics](https://www.azurelists.com/images/AppInsights.png)](https://www.azurelists.com/images/AppInsights.png) | [![App Insights Data Analytics](https://www.azurelists.com/images/AppInsightsQuery.png)](https://www.azurelists.com/images/AppInsightsQuery.png) |
+
 
 ## Looking into the code
 As mentioned in the about us section, this site is focusing on the architecture, it’s not a guide to writing code. With that said, its worth talking about a few of our design choices. 
 
 ### Firstly, the code flow
 
-![](https://www.azurelists.com/images/101Codeflow.png)
+[![Code Diagram](https://www.azurelists.com/images/101Codeflow.png)](https://www.azurelists.com/images/101Codeflow.png)
 
 ### Why .Net?
 In this initial example we’ve chosen to use the full .Net frame work, we could of course have written the app in many languages or even .Net Core 2.1. As the .Net framework is widely used in Enterprise organisations, we felt this was the best choice for our initial example, but in future examples we will move into .Net Core for a cross platform applications. 
@@ -71,7 +72,7 @@ You can also deploy and run containerised web apps and take advantage of all the
 ## How to Deploy the Examples
 
 Both the API and Website solutions can be deployed via Visual Studio Publish tools, and the API project contains SQL DB project which can also be right click deployed.
-![](https://www.azurelists.com/images/deploySQLDB.png)
+[![Visual Studio Screen Shot](https://www.azurelists.com/images/deploySQLDB.png)](https://www.azurelists.com/images/deploySQLDB.png)
 
 ## DevOps
 *   [Guide to setting up automated builds for each project using VSTS](https://docs.microsoft.com/en-us/vsts/build-release/apps/aspnet/build-aspnet-4?view=vsts&tabs=vsts)
