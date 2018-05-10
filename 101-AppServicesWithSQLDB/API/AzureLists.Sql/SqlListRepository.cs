@@ -16,7 +16,7 @@ namespace AzureLists.Sql
 
         public SqlListRepository()
         {
-            this.connectionString = WebConfigurationManager.ConnectionStrings["AzureLists"].ConnectionString;
+            this.connectionString = WebConfigurationManager.ConnectionStrings["AzureListsDBConnectionString"].ConnectionString;
         }
 
         public async Task<IEnumerable<T>> Get<T>() where T : class, Library.IIdentifiable, new()
