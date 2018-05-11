@@ -161,9 +161,13 @@ namespace AzureLists.Website.Services
             List<Models.Api.Task> allTasks = new List<Models.Api.Task>();
             foreach (var l in lst)
             {
-                foreach (var t in l.Tasks)
-                    t.ListId = l.Id;
-                allTasks.AddRange(l.Tasks);
+                if (l.Tasks != null && l.Tasks.Any())
+                {
+                    foreach (var t in l.Tasks)
+                        t.ListId = l.Id;
+                    allTasks.AddRange(l.Tasks);
+                }
+                
             }
                 
 
