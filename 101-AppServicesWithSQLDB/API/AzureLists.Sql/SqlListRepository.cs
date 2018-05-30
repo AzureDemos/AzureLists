@@ -24,7 +24,7 @@ namespace AzureLists.Sql
             return await this.Get<T>(string.Empty);
         }
 
-        public async Task<IEnumerable<T>> Get<T>(string id, bool? important = null, bool? completed = null) where T : class, Library.IIdentifiable, new()
+        public async Task<IEnumerable<T>> Get<T>(string id = null, bool? important = null, bool? completed = null) where T : class, Library.IIdentifiable, new()
         {
             List<SqlParameter> parameters = new List<SqlParameter>();
             string condition = this.BuildCondition<T>(id, important, completed, parameters);
@@ -154,26 +154,32 @@ namespace AzureLists.Sql
 
         private string BuildCondition<T>(string id, bool? important, bool? completed, List<SqlParameter> parameters)
         {
-            if (string.IsNullOrWhiteSpace(id)) return string.Empty;
-
+            bool whered = false;
             StringBuilder builder = new StringBuilder();
-            SqlParameter parameter = new SqlParameter("id", SqlDbType.NVarChar)
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                Value = id
-            };
-
-            parameters.Add(parameter);
-
-            builder.Append($"WHERE {typeof(T).Name}.Id = @id");
+                SqlParameter parameter = new SqlParameter("id", SqlDbType.NVarChar)
+                {
+                    Value = id
+                };
+                parameters.Add(parameter);
+                builder.Append($"WHERE {typeof(T).Name}.Id = @id");
+                whered = true;
+            }
 
             if (important != null)
             {
                 int n = important.Value ? 1 : 0;
-                builder.Append($" AND Task.Important = {n}");
+                string condition = whered ? " AND" : "WHERE";
+                whered = true;
+                builder.Append($"{condition} Task.Important = {n}");
             }
 
-
-            if (completed != null) builder.Append(completed.Value ? $" AND Task.CompletedDate IS NOT NULL" : $" AND Task.CompletedDate IS NULL");
+            if (completed != null)
+            {
+                string condition = whered ? " AND" : "WHERE";                
+                builder.Append(completed.Value ? $"{condition} Task.CompletedDate IS NOT NULL" : $"{condition} Task.CompletedDate IS NULL");
+            }            
 
             return builder.ToString();
         }

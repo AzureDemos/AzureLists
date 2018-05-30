@@ -6,8 +6,8 @@ namespace AzureLists.Library
     public interface IListRepository
     {
         Tasks.Task<IEnumerable<T>> Get<T>() where T : class, IIdentifiable, new();
-
-        Tasks.Task<IEnumerable<T>> Get<T>(string id, bool? important = null, bool? completed = null) where T : class, IIdentifiable, new();
+        
+        Tasks.Task<IEnumerable<T>> Get<T>(string id = null, bool? important = null, bool? completed = null) where T : class, IIdentifiable, new();
 
         Tasks.Task Create<T>(string listId, T item) where T : IIdentifiable;
         

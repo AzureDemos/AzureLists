@@ -32,6 +32,11 @@ namespace AzureLists.Library
             return await this.listRepository.Get<T>();
         }
 
+        public async Tasks.Task<IEnumerable<T>> Get<T>(bool? important = null, bool? completed = null) where T : class, Library.IIdentifiable, new()
+        {
+            return await this.listRepository.Get<T>(important: important, completed: completed);
+        }
+
         public async Tasks.Task<IEnumerable<T>> Get<T>(string id, bool? important = null, bool? completed = null) where T : class, Library.IIdentifiable, new()
         {
             return await this.listRepository.Get<T>(id, important, completed);

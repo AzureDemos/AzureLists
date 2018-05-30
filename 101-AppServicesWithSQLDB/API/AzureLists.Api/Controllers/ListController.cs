@@ -18,7 +18,7 @@ namespace AzureLists.Api.Controllers
         }
 
         [HttpGet]
-        [Route("api/lists")]
+        [Route("api/lists")]        
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<List>))]
         public async Task<IHttpActionResult> Get()
         {
