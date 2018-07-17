@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DummyDataGenerator.cs" />
     <Compile Include="IIdentifiable.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="List.cs" />
