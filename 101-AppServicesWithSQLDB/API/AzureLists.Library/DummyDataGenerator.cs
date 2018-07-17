@@ -11,7 +11,7 @@ namespace AzureLists.Library
         public List CreateInboxList()
         {
             Random rnd = new Random();
-            var inbox = new List() { Name = "Inbox" };
+            var inbox = new List() { Name = "Inbox", Tasks = new List<Task>() };
             inbox.Tasks.Add(new Task() { Title = "Signup to gym", Important = true });
             inbox.Tasks.Add(new Task() { Title = "Create presentation on Azure"});
             inbox.Tasks.Add(new Task() { Title = "Pickup Tom up from airport", Important = true, DueDate= DateTime.Now.AddDays(3) });
@@ -27,7 +27,7 @@ namespace AzureLists.Library
         public List CreateGroceriesList()
         {
             Random rnd = new Random();
-            var groceries = new List() { Name = "Groceries" };
+            var groceries = new List() { Name = "Groceries", Tasks = new List<Task>() };
             groceries.Tasks.Add(new Task() { Title = "Milk" });
             groceries.Tasks.Add(new Task() { Title = "Tea & Coffee" });
             groceries.Tasks.Add(new Task() { Title = "White Bread"});
@@ -50,7 +50,7 @@ namespace AzureLists.Library
         public List CreateHolidayList()
         {
             Random rnd = new Random();
-            var holiday = new List() { Name = "Holiday" };
+            var holiday = new List() { Name = "Holiday", Tasks = new List<Task>() };
             holiday.Tasks.Add(new Task() { Title = "Renew passport", Important = true, DueDate = DateTime.Now.AddDays(2)});
             holiday.Tasks.Add(new Task() { Title = "Buy new suitcase" });
             holiday.Tasks.Add(new Task() { Title = "Exchange Euros" });
