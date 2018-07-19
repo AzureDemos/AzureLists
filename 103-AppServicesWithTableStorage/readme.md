@@ -7,68 +7,32 @@ It’s geo-redundant storage is replicated across regions and embraces a strong 
 
 [![App Service with SQL Architecture](https://www.azurelists.com/images/architecture103.png)](https://www.azurelists.com/images/architecture103.png)
 
-
-Key Features | App Service Offering	
--- | --	
-Support Languages | .NET, .NET Core, Java, Ruby, Node.js, PHP, or Python	
-Platforms |	Windows, Linux
-Maintenance | Fully Managed, high availability with auto-patching	
-Tiers |	Shared Compute, Dedicated Compute, Isolated Environment	
-Deployment |	Deployment Slots feature and continuous deployment with Git, TFS, GitHub & VSTS		
-Scaling |	Automatically scale vertically and horizontally with customisable rules
-Monitoring | View application performance and health. Integrates with Application Insights for deeper analysis
-Complexity | Low barrier to entry, majority of existing web applications can be hosted with minimal adjustments * 
-Portability | Can be hosted on traditional web servers such as IIS, Apache	
-Security | Built-in authentication and authorization support. Additionally, if required App Service Environments provide network isolation and improved scale capabilities.
-Developer Productivity | A fast and simple way to host existing or new applications. APIs, connectors and services through the Azure Marketplace. Quickly implement SSL, SSO
-Enterprise | Complies with ISO standards, SOC2 accounting standards, PCI security standards and many more
-Open Source | Supports WordPress, Umbraco, Joomla, Drupal and more
-
-
-**If the app requires specific programs to be installed on the machine then this may not be appropriate. A few things to consider like making sure log files don’t write to local drives may be required.*
+> NOTE - this example covers the topic of Azure Table Storage as the data store. Information on Azure App Service, performance monitoring using Application Insights, the website user interface, setup/deployment and the general design choices such as MVC or SPA's can be found in the [101 example](https://azurelists.azurewebsites.net/architectures/app-services-with-sql-db).
 
 Key Features | Azure Table Storage
 -- | --	
-Todo | Todo
+Data | Flexible data schema, with OData-based queries
+Scaling |  Store petabytes of semi-structured data
+Cosmos |  Azure Cosmos DB Table API is a premium offering for table storage that offers throughput-optimized tables, global distribution, and automatic secondary indexes
+Redundancy | Geo-Redundant storage, stored data is replicated three times within a region, and an additional three times in another region hundreds of miles away
+Consistency | Embraces a strong consistency model. Handles systems with multiple users who are updating data stores simultaneously.
+Price | Table storage is the cheapest of the three data stores
 
+## Table Storage Database Design
 
-## Application Performance Management
-Application Insights provides rich performance monitoring, powerful alerting and easy-to-consume dashboards. Interactive queries and full-text search make finding the information you need quick and easy.
-
-| Live Metrics | Interactive Data Analytics |
-| --- | ---	|
-| [![App Insights Live Metrics](https://www.azurelists.com/images/AppInsights.png)](https://www.azurelists.com/images/AppInsights.png) | [![App Insights Data Analytics](https://www.azurelists.com/images/AppInsightsQuery.png)](https://www.azurelists.com/images/AppInsightsQuery.png) |
-
-
-## Looking into the code
-As mentioned in the about us section, this site is focusing on the architecture, it’s not a guide to writing code. With that said, its worth talking about a few of our design choices. 
-
-### Firstly, the code flow
-
-[![Code Diagram](https://www.azurelists.com/images/101Codeflow.png)](https://www.azurelists.com/images/101Codeflow.png)
-
-### Why .Net?
-In this initial example we’ve chosen to use the full .Net frame work, we could of course have written the app in many languages or even .Net Core 2.1. As the .Net framework is widely used in Enterprise organisations, we felt this was the best choice for our initial example, but in future examples we will move into .Net Core for a cross platform applications. 
-
-### What about SPA’s?
-The websites simple design would fit nicely into a JavaScript single page app. This is something that we will cover in future examples (function proxies), but again for this initial one, we have stayed with the ASP.NET MVC framework. 
-
-## Containers				
-You can also deploy and run containerised web apps and take advantage of all the additional features of App Service. More information can be found at [https://azure.microsoft.com/en-gb/services/app-service/containers/](https://azure.microsoft.com/en-gb/services/app-service/containers/)	
+todo...
 
 ## Links
 
-*   [Source Code on GitHub](https://github.com/AzureDemos/AzureLists/tree/master/101-AppServicesWithSQLDB/)
+*   [Source Code on GitHub](https://github.com/AzureDemos/AzureLists/tree/master/103-AppServicesWithTableStorage)
 *   [View Live Demo](https://demo.azurelists.com)
-
-## DevOps
-*   [Guide to setting up automated builds for each project using VSTS](https://docs.microsoft.com/en-us/vsts/build-release/apps/aspnet/build-aspnet-4?view=vsts&tabs=vsts)
-*   [Guide to creating a release in VSTS](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/deploy-webdeploy-webapps?view=vsts)
+*   [101-Example Covering the Website & Design Choices](https://azurelists.azurewebsites.net/architectures/app-services-with-sql-db)
 
 ## References
 
 *   [Azure App Service](https://azure.microsoft.com/en-gb/services/app-service/) - Quickly create powerful cloud apps using a fully managed platform
 *   [Azure Table Storage](https://azure.microsoft.com/en-gb/services/storage/tables/) - A NoSQL key-value store for rapid development using massive semi-structured datasets
+*    [Table Storage Design Patterns](https://docs.microsoft.com/en-gb/azure/storage/tables/table-storage-design-patterns) - Practically address some of the issues and trade-offs of Table Storage designs patterns
 *   [Application Insights](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-overview) - Rich performance monitoring and analytics
 *   [Swagger Open API](https://swagger.io/) - API developer tools for the OpenAPI Specification (OAS)
 
