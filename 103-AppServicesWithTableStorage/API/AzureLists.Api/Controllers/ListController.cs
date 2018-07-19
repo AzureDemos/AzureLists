@@ -13,10 +13,10 @@ namespace AzureLists.Api.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ListController : ApiController
     {
-        private readonly TableStorageListService listService;
+        private readonly IListService listService;
        
 
-        public ListController(TableStorageListService listService)
+        public ListController(IListService listService)
         {
             this.listService = listService;
         }

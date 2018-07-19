@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AzureLists.TableStorage
 {
-    public class TableStorageListService
+    public class TableStorageListService : IListService
     {
         public readonly TableStorageRepository listRepository; //shouldn't be public but using it in the console to show functionality
 

@@ -13,9 +13,9 @@ namespace AzureLists.Api.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DummyDataController : ApiController
     {
-        private readonly TableStorageListService listService;
+        private readonly IListService listService;
 
-        public DummyDataController(TableStorageListService listService)
+        public DummyDataController(IListService listService)
         {
             this.listService = listService;
         }

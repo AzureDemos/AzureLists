@@ -16,7 +16,7 @@ namespace AzureLists.Api.App_Start
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterType<TableStorageRepository>().AsSelf();
-            builder.RegisterType<TableStorageListService>().AsSelf();
+            builder.RegisterType<TableStorageListService>().As<IListService>();
             var fakeAuthenticatedUser = UserCredentials.GetFirstUserFirstPartion();
             builder.Register(c => fakeAuthenticatedUser).As<UserCredentials>();
             IContainer container = builder.Build();

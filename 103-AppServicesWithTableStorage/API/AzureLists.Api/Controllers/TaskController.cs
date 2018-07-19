@@ -13,9 +13,9 @@ namespace AzureLists.Api.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class TaskController : ApiController
     {
-        private readonly TableStorageListService listService;
+        private readonly IListService listService;
 
-        public TaskController(TableStorageListService listService)
+        public TaskController(IListService listService)
         {
             this.listService = listService;
         }

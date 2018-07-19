@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureLists.Api", "AzureList
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureLists.Library", "AzureLists.Library\AzureLists.Library.csproj", "{83CA9DF2-3E51-4404-8901-8A32EFC28304}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureLists.Sql", "AzureLists.Sql\AzureLists.Sql.csproj", "{42D84776-AC57-48E6-A23F-BC4B38A86ACB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureLists.TableStorage", "AzureLists.TableStorage\AzureLists.TableStorage.csproj", "{2A10343C-4561-4CC4-A538-829ED2B69A48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleExamples", "ConsoleExamples\ConsoleExamples.csproj", "{3A4D1E99-F37B-4225-8CFE-BC42DA7E3958}"
@@ -27,10 +25,6 @@ Global
 		{83CA9DF2-3E51-4404-8901-8A32EFC28304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83CA9DF2-3E51-4404-8901-8A32EFC28304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83CA9DF2-3E51-4404-8901-8A32EFC28304}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42D84776-AC57-48E6-A23F-BC4B38A86ACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42D84776-AC57-48E6-A23F-BC4B38A86ACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42D84776-AC57-48E6-A23F-BC4B38A86ACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42D84776-AC57-48E6-A23F-BC4B38A86ACB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2A10343C-4561-4CC4-A538-829ED2B69A48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2A10343C-4561-4CC4-A538-829ED2B69A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A10343C-4561-4CC4-A538-829ED2B69A48}.Release|Any CPU.ActiveCfg = Release|Any CPU

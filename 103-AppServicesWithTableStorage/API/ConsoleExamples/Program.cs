@@ -20,6 +20,8 @@ namespace ConsoleApp1
 
         static async System.Threading.Tasks.Task MainAsync()
         {
+            //Not using TableStorageListService as IListService becuase we want to access property: service.listRepository.AuthenticatedUser.UserID (just for console logging purposes)
+            //In the IOC TableStorageListService is defined as IListService, which is what the API controllers receive 
             TableStorageListService serviceForUser1 = new TableStorageListService(new TableStorageRepository(UserCredentials.GetFirstUserFirstPartion()));
             TableStorageListService serviceForUser2 = new TableStorageListService(new TableStorageRepository(UserCredentials.GetSecondtUserFirstPartion()));
             TableStorageListService serviceForUser3 = new TableStorageListService(new TableStorageRepository(UserCredentials.GetFirstUserSecondPartion()));
