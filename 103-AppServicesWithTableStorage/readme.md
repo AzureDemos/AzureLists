@@ -1,5 +1,5 @@
 # Example 103 - App Services with Table Storage
-19 July 2018
+1 July 2018
 
 In this example we have switched the Azure SQL DB for Azure Table Storage, a NoSQL key-value store designed for rapid development using massive semi-structured datasets.
 Table storage is very affordable and enables you to store petabytes of data and scale without having to manually shard your dataset. 
@@ -60,11 +60,6 @@ You can also deploy and run containerised web apps and take advantage of all the
 
 *   [Source Code on GitHub](https://github.com/AzureDemos/AzureLists/tree/master/101-AppServicesWithSQLDB/)
 *   [View Live Demo](https://demo.azurelists.com)
-
-## How to Deploy the Examples
-
-Both the API and Website solutions can be deployed via Visual Studio Publish tools, and the API project contains SQL DB project which can also be right click deployed.
-[![Visual Studio Screen Shot](https://www.azurelists.com/images/deploySQLDB.png)](https://www.azurelists.com/images/deploySQLDB.png)
 
 ## DevOps
 *   [Guide to setting up automated builds for each project using VSTS](https://docs.microsoft.com/en-us/vsts/build-release/apps/aspnet/build-aspnet-4?view=vsts&tabs=vsts)
