@@ -14,10 +14,12 @@ namespace AzureLists.TableStorage
     public class TableStorageRepository
     {
         private readonly string connectionString;
+        public readonly UserCredentials AuthenticatedUser; //shouldn't be public but accessing it in the console to show functionality
 
-        public TableStorageRepository()
+        public TableStorageRepository(UserCredentials authenticatedUser)
         {
             this.connectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
+            this.AuthenticatedUser = authenticatedUser;
         }
 
 
@@ -68,49 +70,49 @@ namespace AzureLists.TableStorage
 
 
 
-        public async Task<List> CreateOrUpdateList(UserCredentials userCreds, List item) 
+        public async Task<List> CreateOrUpdateList(List item) 
         {
             CloudTable table = await CreateTableAsync("list");
-            ListEntity list = new ListEntity(item as List, userCreds.PartionKey, GenerateRowKey(userCreds.UserID, item.Id));
+            ListEntity list = new ListEntity(item as List, this.AuthenticatedUser.PartionKey, GenerateRowKey(this.AuthenticatedUser.UserID, item.Id));
             TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(list);
             TableResult result = await table.ExecuteAsync(insertOrMergeOperation);
             ListEntity updatedList = result.Result as ListEntity;
             return ConvertListEntityToDomainModel(updatedList);
         }
 
-        public async System.Threading.Tasks.Task DeleteList(UserCredentials userCreds, string listId)
+        public async System.Threading.Tasks.Task DeleteList(string listId)
         {
             CloudTable table = await CreateTableAsync("list");
-            ListEntity listEntity = await GetListEntityById(userCreds, listId);
+            ListEntity listEntity = await GetListEntityById(listId);
             TableOperation deleteOperation = TableOperation.Delete(listEntity);
             await table.ExecuteAsync(deleteOperation);
         }
 
-        public async Task<List> GetListById(UserCredentials userCreds, string listId)
+        public async Task<List> GetListById(string listId)
         {
-            ListEntity listEntity = await GetListEntityById(userCreds, listId);
+            ListEntity listEntity = await GetListEntityById(listId);
             return ConvertListEntityToDomainModel(listEntity);
         }
 
-        private async Task<ListEntity> GetListEntityById(UserCredentials userCreds, string listId)
+        private async Task<ListEntity> GetListEntityById(string listId)
         {
             CloudTable table = await CreateTableAsync("list");
-            TableOperation retrieveOperation = TableOperation.Retrieve<ListEntity>(userCreds.PartionKey, GenerateRowKey(userCreds.UserID, listId));
+            TableOperation retrieveOperation = TableOperation.Retrieve<ListEntity>(this.AuthenticatedUser.PartionKey, GenerateRowKey(this.AuthenticatedUser.UserID, listId));
             TableResult result = await table.ExecuteAsync(retrieveOperation);
             ListEntity entity = result.Result as ListEntity;
             return entity;
         }
 
-        public async Task<IEnumerable<List>> GetListsByUser(UserCredentials userCreds)
+        public async Task<IEnumerable<List>> GetListsByUser()
         {
-            var listEntities = await GetListEntitesByUser(userCreds);
+            var listEntities = await GetListEntitesByUser();
             List<List> lists = new List<List>();
             foreach (var le in listEntities)
                 lists.Add(ConvertListEntityToDomainModel(le));
             return lists;
         }
 
-        private async Task<IEnumerable<ListEntity>> GetListEntitesByUser(UserCredentials userCreds) 
+        private async Task<IEnumerable<ListEntity>> GetListEntitesByUser() 
         {
             // To access a list we need to partition key and row key
             // The partition key in this demo is constant, but in a real work senarion it would be something that can evenly distribute the lists.
@@ -118,7 +120,7 @@ namespace AzureLists.TableStorage
             // Again for this demo the userid is constant as we dont have authentication, but we are still writing the query as if there were more users. 
 
             CloudTable table = await CreateTableAsync("list");
-            var userPatern = GetListsForAUserPatern(userCreds.UserID);
+            var userPatern = GetListsForAUserPatern(this.AuthenticatedUser.UserID);
             var userCondition = TableQuery.CombineFilters(
                 TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.GreaterThanOrEqual, userPatern.Item1),
                 TableOperators.And,
@@ -126,7 +128,7 @@ namespace AzureLists.TableStorage
             );
 
             var filterString = TableQuery.CombineFilters(
-                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, userCreds.PartionKey),
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, this.AuthenticatedUser.PartionKey),
                 TableOperators.And,
                 userCondition
             );

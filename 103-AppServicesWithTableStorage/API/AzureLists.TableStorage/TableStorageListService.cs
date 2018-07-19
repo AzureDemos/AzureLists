@@ -10,36 +10,36 @@ namespace AzureLists.TableStorage
 {
     public class TableStorageListService
     {
-        private readonly TableStorageRepository listRepository;
+        public readonly TableStorageRepository listRepository; //shouldn't be public but using it in the console to show functionality
 
-        public TableStorageListService()
+        public TableStorageListService(TableStorageRepository repo)
         {
-            this.listRepository = new TableStorageRepository();
+            this.listRepository = repo;
         }
 
         #region Lists Actions
 
-        public async Task<List> CreateOrUpdateList(UserCredentials userCreds, List item)
+        public async Task<List> CreateOrUpdateList(List item)
         {
             List list = item as List;
             GenerateId(list);
             if (list.Tasks != null) list.Tasks.ForEach(this.GenerateId);
-            var updatedList = await this.listRepository.CreateOrUpdateList(userCreds, list);
+            var updatedList = await this.listRepository.CreateOrUpdateList(list);
             return updatedList;
         }
 
-        public async System.Threading.Tasks.Task DeleteList(UserCredentials userCreds, string listId)
+        public async System.Threading.Tasks.Task DeleteList(string listId)
         {
-            await this.listRepository.DeleteList(userCreds, listId);
+            await this.listRepository.DeleteList(listId);
         }
-        public async Task<IEnumerable<List>> GetAllLists(UserCredentials userCreds)
+        public async Task<IEnumerable<List>> GetAllLists()
         {
-            var lists = await this.listRepository.GetListsByUser(userCreds);
+            var lists = await this.listRepository.GetListsByUser();
             return lists;
         }
-        public async Task<List> GetListById(UserCredentials userCreds, string listId)
+        public async Task<List> GetListById(string listId)
         {
-            var list = await this.listRepository.GetListById(userCreds, listId);
+            var list = await this.listRepository.GetListById(listId);
             return list;
         }
 
@@ -47,59 +47,115 @@ namespace AzureLists.TableStorage
 
         #region Tasks Actions
 
-        public async Task<Library.Task> GetTaskById(UserCredentials userCreds, string taskId)
+        public async Task<Library.Task> GetTaskById(string taskId, string listId = null)
         {
-            var listTaskTuple = await GetListAndTaskByTaskId(userCreds, taskId);
-            return listTaskTuple.Item2;
+            if (listId != null)
+            {
+                var list = await GetListById(listId);
+                return list.Tasks.Where(x => x.Id == taskId).FirstOrDefault();
+            }
+            else
+            {
+                var listTaskTuple = await GetListAndTaskByTaskId(taskId);
+                if (listTaskTuple == null) return null;
+                return listTaskTuple.Item2;
+            }
         }
 
-        public async Task<Library.Task> ReplaceTask(UserCredentials userCreds, Library.Task item)
+        public async Task<Library.Task> AddTaskToList(string listId, Library.Task item)
         {
-            //Get Task and Parent List
-            var listTaskTuple = await GetListAndTaskByTaskId(userCreds, item.Id);
-            var list = listTaskTuple.Item1;
-            //Update Task on List
-            list.Tasks.Remove(listTaskTuple.Item2);
-            list.Tasks.Add(item as Library.Task);
-            //Update List and return Task
-            var updatedList = await this.listRepository.CreateOrUpdateList(userCreds, list);
+            var list = await GetListById(listId);
+            list.Tasks.Add(item);
+            var updatedList = await this.listRepository.CreateOrUpdateList(list);
             return updatedList.Tasks.FirstOrDefault(x => x.Id == item.Id);
         }
 
-        public async System.Threading.Tasks.Task DeleteTask(UserCredentials userCreds, string taskId)
+        public async Task<Library.Task> ReplaceTask(Library.Task item, string listId = null)
         {
-            //Get Task and Parent List
-            var listTaskTuple = await GetListAndTaskByTaskId(userCreds, taskId);
-            var list = listTaskTuple.Item1;
-            //Update Task on List
-            list.Tasks.Remove(listTaskTuple.Item2);
+            List list = null;
+            Library.Task task = null;
+            if (listId != null)
+            {
+                list = await GetListById(listId);
+                task = list.Tasks.Where(x => x.Id == item.Id).FirstOrDefault();
+            }
+            else
+            {
+                var listTaskTuple = await GetListAndTaskByTaskId(item.Id);
+                if (listTaskTuple == null) return null;
+                list = listTaskTuple.Item1;
+                task = listTaskTuple.Item2;
+            }
+            list.Tasks.Remove(task);
+            list.Tasks.Add(item);
             //Update List and return Task
-            await this.listRepository.CreateOrUpdateList(userCreds, list);
+            var updatedList = await this.listRepository.CreateOrUpdateList(list);
+            return updatedList.Tasks.FirstOrDefault(x => x.Id == item.Id);
         }
+
+      
+        public async System.Threading.Tasks.Task DeleteTask(string taskId, string listId = null)
+        {
+            List list = null;
+            Library.Task task = null;
+            if (listId != null)
+            {
+                list = await GetListById(listId);
+                task = list.Tasks.Where(x => x.Id == taskId).FirstOrDefault();
+            }
+            else
+            {
+                var listTaskTuple = await GetListAndTaskByTaskId(taskId);
+                if (listTaskTuple != null)
+                {
+                    list = listTaskTuple.Item1;
+                    task = listTaskTuple.Item2;
+                }
+            }
+            if (task != null)
+            {
+                list.Tasks.Remove(task);
+                await this.listRepository.CreateOrUpdateList(list);
+            }
+        }
+
 
         /// <summary>
         /// Search Tasks by Importand or Complete
         /// See summary notes for GetListAndTaskByTaskId()
         /// </summary>
-        public async Task<IEnumerable<Library.Task>> SearchTasks(UserCredentials userCreds, bool? important = null, bool? completed = null)
+        public async Task<IEnumerable<Library.Task>> SearchTasks(string listId = null, bool? important = null, bool? completed = null)
         {
             if (completed == null && important == null) throw new Exception("You must query by at least completed or important");
-            var lists = await GetAllLists(userCreds);
             List<Library.Task> tasks = new List<Library.Task>();
-            foreach (var l in lists)
+            if (listId != null)
             {
-                List<Library.Task> matches = new List<Library.Task>();
-                if (completed != null && completed.Value && important != null && important.Value)
-                    matches = l.Tasks.Where(x => x.CompletedDate != null && x.Important).ToList();
-                else if (completed != null && completed.Value)
-                    matches = l.Tasks.Where(x => x.CompletedDate != null).ToList();
-                else
-                    matches = l.Tasks.Where(x => x.Important).ToList();
-
+                var list = await GetListById(listId);
+                var matches = SearchTasksWithinList(list, important, completed);
                 if (matches.Any())
                     tasks.AddRange(matches);
             }
+            else
+            {
+                var lists = await GetAllLists();
+                foreach (var l in lists)
+                {
+                    var matches = SearchTasksWithinList(l, important, completed);
+                    if (matches.Any())
+                        tasks.AddRange(matches);
+                }
+            }
             return tasks;
+        }
+
+        private List<Library.Task> SearchTasksWithinList(List list, bool? important = null, bool? completed = null)
+        {
+            if (completed != null && completed.Value && important != null && important.Value)
+                return list.Tasks.Where(x => x.CompletedDate != null && x.Important).ToList();
+            else if (completed != null && completed.Value)
+                return list.Tasks.Where(x => x.CompletedDate != null).ToList();
+            else
+                return list.Tasks.Where(x => x.Important).ToList();
         }
 
 
@@ -114,9 +170,9 @@ namespace AzureLists.TableStorage
         /// Therefore we have not split tasks into a seperate table. This is not very performant if a user has a lot of lists, so the right choice it really depends on how we think the lists will be used by the users. 
         /// These demos are created to discus the pro and cons of different database in Azure, and therefore these performance considerations are a design choice for a specific use case
         /// </summary>
-        private async Task<Tuple<Library.List, Library.Task>> GetListAndTaskByTaskId(UserCredentials userCreds, string id)
+        private async Task<Tuple<Library.List, Library.Task>> GetListAndTaskByTaskId(string id)
         {
-            var lists = await GetAllLists(userCreds);
+            var lists = await GetAllLists();
             Library.Task task = null;
             Library.List list = null;
             foreach (var l in lists)
@@ -129,7 +185,7 @@ namespace AzureLists.TableStorage
                     break;
                 }
             }
-            if (task == null) throw new Exception("Task not found");
+            if (task == null) return null;
             return Tuple.Create(list, task);
         }
 

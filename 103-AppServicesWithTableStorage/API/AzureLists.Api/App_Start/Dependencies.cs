@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using AzureLists.Library;
-using AzureLists.Sql;
+using AzureLists.TableStorage;
 using System.Reflection;
 using System.Web.Http;
 
@@ -15,9 +15,10 @@ namespace AzureLists.Api.App_Start
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            builder.RegisterType<SqlListRepository>().As<IListRepository>();
-            builder.RegisterType<ListService>().AsSelf();
-
+            builder.RegisterType<TableStorageRepository>().AsSelf();
+            builder.RegisterType<TableStorageListService>().AsSelf();
+            var fakeAuthenticatedUser = UserCredentials.GetFirstUserFirstPartion();
+            builder.Register(c => fakeAuthenticatedUser).As<UserCredentials>();
             IContainer container = builder.Build();
 
             configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);

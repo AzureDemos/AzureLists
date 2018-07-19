@@ -1,4 +1,5 @@
 ﻿using AzureLists.Library;
+using AzureLists.TableStorage;
 using Swashbuckle.Swagger.Annotations;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,10 @@ namespace AzureLists.Api.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ListController : ApiController
     {
-        private readonly ListService listService;
+        private readonly TableStorageListService listService;
+       
 
-        public ListController(ListService listService)
+        public ListController(TableStorageListService listService)
         {
             this.listService = listService;
         }
@@ -24,7 +26,7 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<List>))]
         public async Task<IHttpActionResult> Get()
         {
-            IEnumerable<List> lists = await this.listService.Get<Library.List>();
+            IEnumerable<List> lists = await this.listService.GetAllLists();
             return this.Ok(lists);
         }
 
@@ -34,8 +36,7 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public async Task<IHttpActionResult> Get(string id)
         {
-            IEnumerable<Library.List> lists = await this.listService.Get<Library.List>(id);
-            Library.List list = lists?.ToList()?.FirstOrDefault();
+            var list = await this.listService.GetListById(id);
             return list != null ? this.Ok(list) : this.NotFound() as IHttpActionResult;
         }
 
@@ -45,7 +46,7 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         public async Task<IHttpActionResult> Post(List list)
         {
-            List l = await this.listService.Create(list);
+            List l = await this.listService.CreateOrUpdateList(list);
             return this.Created($"api/lists/{l.Id}", l);
         }
 
@@ -55,7 +56,7 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         public async Task<IHttpActionResult> Put(string id, Library.List list)
         {
-            await this.listService.Replace<Library.List>(id, list);
+            await this.listService.CreateOrUpdateList(list);
             return this.Created($"api/lists/{list.Id}", list);
         }
 
@@ -64,7 +65,7 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK)]
         public async Task<IHttpActionResult> Delete(string id)
         {
-            await this.listService.Delete<Library.List>(id);
+            await this.listService.DeleteList(id);
             return this.Ok();
         }
 
@@ -74,9 +75,8 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public async Task<IHttpActionResult> GetTasks(string listId, [FromUri] bool? important = null, bool? completed = null)
         {
-            IEnumerable<Library.List> lists = await this.listService.Get<Library.List>(listId, important, completed);
-            Library.List list = lists?.ToList()?.FirstOrDefault();
-            return list != null ? this.Ok(list.Tasks) : this.NotFound() as IHttpActionResult;
+            IEnumerable<Library.Task> tasks = await this.listService.SearchTasks(listId, important, completed);
+            return tasks != null ? this.Ok(tasks) : this.NotFound() as IHttpActionResult;
         }
 
         [HttpGet]
@@ -85,8 +85,7 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public async Task<IHttpActionResult> GetTask(string listId, string taskId)
         {
-            IEnumerable<Library.Task> tasks = await this.listService.Get<Library.Task>(taskId);
-            Library.Task task = tasks?.FirstOrDefault();
+            var task = await this.listService.GetTaskById(taskId, listId);
             return task != null ? this.Ok(task) : this.NotFound() as IHttpActionResult;
         }
 
@@ -96,7 +95,7 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         public async Task<IHttpActionResult> PostTask(string listId, Library.Task task)
         {
-            Library.Task t = await this.listService.Create(task, listId);
+            Library.Task t = await this.listService.AddTaskToList(listId,task);
             return this.Created($"api/lists/{listId}/tasks/{t.Id}", t);
         }
 
@@ -106,7 +105,7 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         public async Task<IHttpActionResult> Put(string listId, string taskId, Library.Task task)
         {
-            await this.listService.Replace<Library.Task>(taskId, task);
+            await this.listService.ReplaceTask(task,listId);
             return this.Created($"api/lists/{listId}/tasks/{taskId}", task);
         }
 
@@ -115,7 +114,7 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK)]
         public async Task<IHttpActionResult> DeleteTask(string listId, string taskId)
         {
-            await this.listService.Delete<Library.Task>(taskId);
+            await this.listService.DeleteTask(taskId, listId);
             return this.Ok();
         }
     }    

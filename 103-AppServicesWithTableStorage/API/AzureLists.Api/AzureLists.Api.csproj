@@ -57,8 +57,8 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
@@ -109,6 +109,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ListController.cs" />
+    <Compile Include="Controllers\DummyData.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -135,9 +136,9 @@
       <Project>{83CA9DF2-3E51-4404-8901-8A32EFC28304}</Project>
       <Name>AzureLists.Library</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AzureLists.Sql\AzureLists.Sql.csproj">
-      <Project>{42D84776-AC57-48E6-A23F-BC4B38A86ACB}</Project>
-      <Name>AzureLists.Sql</Name>
+    <ProjectReference Include="..\AzureLists.TableStorage\AzureLists.TableStorage.csproj">
+      <Project>{2a10343c-4561-4cc4-a538-829ed2b69a48}</Project>
+      <Name>AzureLists.TableStorage</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
