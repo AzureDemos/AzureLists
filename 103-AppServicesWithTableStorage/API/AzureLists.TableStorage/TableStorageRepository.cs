@@ -67,7 +67,14 @@ namespace AzureLists.TableStorage
         #region IListRepository Implementation
 
 
-        public async System.Threading.Tasks.Task<ListEntity> Create<T>(UserCredentials userCreds, string listId, T item) where T : IIdentifiable
+        public async Task<ListEntity> Create<T>(UserCredentials userCreds, string listId, T item) where T : IIdentifiable
+        {
+            return await Update(userCreds, listId, item);
+        }
+
+      
+
+        public async Task<ListEntity> Update<T>(UserCredentials userCreds, string listId, T item) where T : IIdentifiable
         {
             CloudTable table = await CreateTableAsync("list");
             if (typeof(T) == typeof(Library.List))
@@ -82,7 +89,6 @@ namespace AzureLists.TableStorage
             {
                 throw new NotImplementedException("Table storage only implements updates of lists not task. Task is already part of the list object. ");
             }
-
         }
 
         public async System.Threading.Tasks.Task Delete<T>(UserCredentials userCreds, string id) where T : IIdentifiable
@@ -98,12 +104,7 @@ namespace AzureLists.TableStorage
             {
                 throw new NotImplementedException("Table storage only implements deletions of lists not task. Task is already part of the list object. ");
             }
-          
-        }
 
-        public async System.Threading.Tasks.Task Update<T>(UserCredentials userCreds, string id, T item) where T : IIdentifiable
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<ListEntity>> Get<T>(UserCredentials userCreds) where T : IIdentifiable
