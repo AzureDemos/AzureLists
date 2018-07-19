@@ -17,90 +17,74 @@ namespace AzureLists.TableStorage
             this.listRepository = new TableStorageRepository();
         }
 
-        public async System.Threading.Tasks.Task<T> Create<T>(UserCredentials userCreds, T item, string listId = null) where T : Library.IIdentifiable
-        {
-            if (typeof(T) == typeof(List))
-            {
-                List list = item as List;
-                GenerateId(list);
-                if (list.Tasks != null) list.Tasks.ForEach(this.GenerateId);
-                var listEntity = await this.listRepository.Create(userCreds, item.Id, list);
-                item.Id = listEntity.Id;
-                return item;
-            }
-            else
-            {
-                if (listId == null)
-                    throw new Exception("Cannot create task with list ID");
-                return default(T);//not done yet
-            }
+        #region Lists Actions
 
+        public async Task<List> CreateOrUpdateList(UserCredentials userCreds, List item)
+        {
+            List list = item as List;
+            GenerateId(list);
+            if (list.Tasks != null) list.Tasks.ForEach(this.GenerateId);
+            var updatedList = await this.listRepository.CreateOrUpdateList(userCreds, list);
+            return updatedList;
         }
 
-        public async Task<T> Replace<T>(UserCredentials userCreds, string id, T item) where T : class, Library.IIdentifiable, new()
+        public async System.Threading.Tasks.Task DeleteList(UserCredentials userCreds, string listId)
         {
-            if (typeof(T) == typeof(List))
-            {
-                List list = item as List;
-                GenerateId(list);
-                if (list.Tasks != null) list.Tasks.ForEach(this.GenerateId);
-                var le = await this.listRepository.Update<T>(userCreds, id, item);
-                return ConvertListEntityToDomainModel(le) as T;
-            }
-            else
-            {
-                //Get Task and Parent List
-                var listTaskTuple = await GetListAndTaskByTaskId(userCreds, id);
-                var list = listTaskTuple.Item1;
-                //Update Task on List
-                list.Tasks.Remove(listTaskTuple.Item2);
-                list.Tasks.Add(item as Library.Task);
-                //Update List and return Task
-                var le = await this.listRepository.Update<List>(userCreds, list.Id, list);
-                var updatedList = ConvertListEntityToDomainModel(le);
-                return updatedList.Tasks.FirstOrDefault(x => x.Id == id) as T;
-            }
+            await this.listRepository.DeleteList(userCreds, listId);
+        }
+        public async Task<IEnumerable<List>> GetAllLists(UserCredentials userCreds)
+        {
+            var lists = await this.listRepository.GetListsByUser(userCreds);
+            return lists;
+        }
+        public async Task<List> GetListById(UserCredentials userCreds, string listId)
+        {
+            var list = await this.listRepository.GetListById(userCreds, listId);
+            return list;
         }
 
+        #endregion
 
-        public async System.Threading.Tasks.Task Delete<T>(UserCredentials userCreds, string id) where T : Library.IIdentifiable
+        #region Tasks Actions
+
+        public async Task<Library.Task> GetTaskById(UserCredentials userCreds, string taskId)
         {
-            if (typeof(T) == typeof(List))
-            {
-                await this.listRepository.Delete<T>(userCreds, id);
-            }
-            else
-            {
-                //Get Task and Parent List
-                var listTaskTuple = await GetListAndTaskByTaskId(userCreds, id);
-                var list = listTaskTuple.Item1;
-                //Update Task on List
-                list.Tasks.Remove(listTaskTuple.Item2);
-                //Update List and return Task
-                await this.listRepository.Update<List>(userCreds, list.Id, list);
-            }
+            var listTaskTuple = await GetListAndTaskByTaskId(userCreds, taskId);
+            return listTaskTuple.Item2;
         }
 
-        /// <summary>
-        /// Get ALL only applies to lists
-        /// </summary>
-        public async System.Threading.Tasks.Task<IEnumerable<T>> Get<T>(UserCredentials userCreds) where T : AzureLists.Library.List, Library.IIdentifiable, new()
+        public async Task<Library.Task> ReplaceTask(UserCredentials userCreds, Library.Task item)
         {
-            var listsEntities = await this.listRepository.Get<T>(userCreds);
-            System.Collections.Generic.List<List> lists = new System.Collections.Generic.List<List>();
-            foreach (var le in listsEntities)
-                lists.Add(ConvertListEntityToDomainModel(le));
-            return lists as IEnumerable<T>;
+            //Get Task and Parent List
+            var listTaskTuple = await GetListAndTaskByTaskId(userCreds, item.Id);
+            var list = listTaskTuple.Item1;
+            //Update Task on List
+            list.Tasks.Remove(listTaskTuple.Item2);
+            list.Tasks.Add(item as Library.Task);
+            //Update List and return Task
+            var updatedList = await this.listRepository.CreateOrUpdateList(userCreds, list);
+            return updatedList.Tasks.FirstOrDefault(x => x.Id == item.Id);
+        }
+
+        public async System.Threading.Tasks.Task DeleteTask(UserCredentials userCreds, string taskId)
+        {
+            //Get Task and Parent List
+            var listTaskTuple = await GetListAndTaskByTaskId(userCreds, taskId);
+            var list = listTaskTuple.Item1;
+            //Update Task on List
+            list.Tasks.Remove(listTaskTuple.Item2);
+            //Update List and return Task
+            await this.listRepository.CreateOrUpdateList(userCreds, list);
         }
 
         /// <summary>
         /// Search Tasks by Importand or Complete
         /// See summary notes for GetListAndTaskByTaskId()
         /// </summary>
-        public async System.Threading.Tasks.Task<IEnumerable<T>> Get<T>(UserCredentials userCreds, bool? important = null, bool? completed = null) where T : Library.Task, Library.IIdentifiable, new()
+        public async Task<IEnumerable<Library.Task>> SearchTasks(UserCredentials userCreds, bool? important = null, bool? completed = null)
         {
             if (completed == null && important == null) throw new Exception("You must query by at least completed or important");
-            var lists = await Get<List>(userCreds);
+            var lists = await GetAllLists(userCreds);
             List<Library.Task> tasks = new List<Library.Task>();
             foreach (var l in lists)
             {
@@ -115,26 +99,13 @@ namespace AzureLists.TableStorage
                 if (matches.Any())
                     tasks.AddRange(matches);
             }
-            return tasks as IEnumerable<T>;
+            return tasks;
         }
 
-        /// <summary>
-        /// Get By ID
-        /// </summary>
-        public async Task<T> Get<T>(UserCredentials userCreds, string id) where T : class, Library.IIdentifiable, new()
-        {
-            if (typeof(T) == typeof(List))
-            {
-                var listEntity = await this.listRepository.Get<T>(userCreds, id);
-                return ConvertListEntityToDomainModel(listEntity) as T;
-            }
-            else
-            {
-                var listTaskTuple = await GetListAndTaskByTaskId(userCreds, id);
-                return listTaskTuple.Item2 as T;
-            }
-        }
 
+        #endregion
+
+        #region Internal Helpers
 
         /// <summary>
         /// We cannot get a task directly without loading the list unless we stored the tasks in a seperate table. 
@@ -145,7 +116,7 @@ namespace AzureLists.TableStorage
         /// </summary>
         private async Task<Tuple<Library.List, Library.Task>> GetListAndTaskByTaskId(UserCredentials userCreds, string id)
         {
-            var lists = await Get<List>(userCreds);
+            var lists = await GetAllLists(userCreds);
             Library.Task task = null;
             Library.List list = null;
             foreach (var l in lists)
@@ -162,8 +133,6 @@ namespace AzureLists.TableStorage
             return Tuple.Create(list, task);
         }
 
-
-
         private void GenerateId<T>(T item) where T : IIdentifiable
         {
             // this is awful and not intended to be an example
@@ -175,13 +144,8 @@ namespace AzureLists.TableStorage
         }
 
 
-        private List ConvertListEntityToDomainModel(ListEntity le)
-        {
-            if (le == null) return null;
+      
 
-            le.DeSerializeNestedTypes();
-            var l = new List() { Id = le.Id, Name = le.Name, Tasks = le.Tasks };
-            return l;
-        }
+        #endregion
     }
 }

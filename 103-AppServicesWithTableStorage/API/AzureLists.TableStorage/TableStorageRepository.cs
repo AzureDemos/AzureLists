@@ -67,47 +67,50 @@ namespace AzureLists.TableStorage
         #region IListRepository Implementation
 
 
-        public async Task<ListEntity> Create<T>(UserCredentials userCreds, string listId, T item) where T : IIdentifiable
-        {
-            return await Update(userCreds, listId, item);
-        }
 
-      
-
-        public async Task<ListEntity> Update<T>(UserCredentials userCreds, string listId, T item) where T : IIdentifiable
+        public async Task<List> CreateOrUpdateList(UserCredentials userCreds, List item) 
         {
             CloudTable table = await CreateTableAsync("list");
-            if (typeof(T) == typeof(Library.List))
-            {
-                ListEntity list = new ListEntity(item as List, userCreds.PartionKey, GenerateRowKey(userCreds.UserID, listId));
-                TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(list);
-                TableResult result = await table.ExecuteAsync(insertOrMergeOperation);
-                ListEntity updatedList = result.Result as ListEntity;
-                return updatedList;
-            }
-            else
-            {
-                throw new NotImplementedException("Table storage only implements updates of lists not task. Task is already part of the list object. ");
-            }
+            ListEntity list = new ListEntity(item as List, userCreds.PartionKey, GenerateRowKey(userCreds.UserID, item.Id));
+            TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(list);
+            TableResult result = await table.ExecuteAsync(insertOrMergeOperation);
+            ListEntity updatedList = result.Result as ListEntity;
+            return ConvertListEntityToDomainModel(updatedList);
         }
 
-        public async System.Threading.Tasks.Task Delete<T>(UserCredentials userCreds, string id) where T : IIdentifiable
+        public async System.Threading.Tasks.Task DeleteList(UserCredentials userCreds, string listId)
         {
             CloudTable table = await CreateTableAsync("list");
-            if (typeof(T) == typeof(Library.List))
-            {
-                ListEntity listEntity = await Get<T>(userCreds, id);
-                TableOperation deleteOperation = TableOperation.Delete(listEntity);
-                await table.ExecuteAsync(deleteOperation);
-            }
-            else
-            {
-                throw new NotImplementedException("Table storage only implements deletions of lists not task. Task is already part of the list object. ");
-            }
-
+            ListEntity listEntity = await GetListEntityById(userCreds, listId);
+            TableOperation deleteOperation = TableOperation.Delete(listEntity);
+            await table.ExecuteAsync(deleteOperation);
         }
 
-        public async Task<IEnumerable<ListEntity>> Get<T>(UserCredentials userCreds) where T : IIdentifiable
+        public async Task<List> GetListById(UserCredentials userCreds, string listId)
+        {
+            ListEntity listEntity = await GetListEntityById(userCreds, listId);
+            return ConvertListEntityToDomainModel(listEntity);
+        }
+
+        private async Task<ListEntity> GetListEntityById(UserCredentials userCreds, string listId)
+        {
+            CloudTable table = await CreateTableAsync("list");
+            TableOperation retrieveOperation = TableOperation.Retrieve<ListEntity>(userCreds.PartionKey, GenerateRowKey(userCreds.UserID, listId));
+            TableResult result = await table.ExecuteAsync(retrieveOperation);
+            ListEntity entity = result.Result as ListEntity;
+            return entity;
+        }
+
+        public async Task<IEnumerable<List>> GetListsByUser(UserCredentials userCreds)
+        {
+            var listEntities = await GetListEntitesByUser(userCreds);
+            List<List> lists = new List<List>();
+            foreach (var le in listEntities)
+                lists.Add(ConvertListEntityToDomainModel(le));
+            return lists;
+        }
+
+        private async Task<IEnumerable<ListEntity>> GetListEntitesByUser(UserCredentials userCreds) 
         {
             // To access a list we need to partition key and row key
             // The partition key in this demo is constant, but in a real work senarion it would be something that can evenly distribute the lists.
@@ -130,19 +133,8 @@ namespace AzureLists.TableStorage
             var query = new TableQuery<ListEntity>();
             var results = table.ExecuteQuery(query.Where(filterString));
             return results;
-
         }
 
-
-
-        public async Task<ListEntity> Get<T>(UserCredentials userCreds, string id)
-        {
-            CloudTable table = await CreateTableAsync("list");
-            TableOperation retrieveOperation = TableOperation.Retrieve<ListEntity>(userCreds.PartionKey, GenerateRowKey(userCreds.UserID, id));
-            TableResult result = await table.ExecuteAsync(retrieveOperation);
-            ListEntity entity = result.Result as ListEntity;
-            return entity;
-        }
 
         public Tuple<string, string> GetListsForAUserPatern(string userId)
         {
@@ -152,6 +144,15 @@ namespace AzureLists.TableStorage
             var nextLastChar = (char)(lastChar + 1);
             var startsWithEndPattern = startsWithPattern.Substring(0, length) + nextLastChar;
             return Tuple.Create(startsWithPattern, startsWithEndPattern);
+        }
+
+        private List ConvertListEntityToDomainModel(ListEntity le)
+        {
+            if (le == null) return null;
+
+            le.DeSerializeNestedTypes();
+            var l = new List() { Id = le.Id, Name = le.Name, Tasks = le.Tasks };
+            return l;
         }
 
         #endregion
