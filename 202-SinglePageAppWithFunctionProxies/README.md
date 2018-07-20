@@ -3,7 +3,7 @@
 
 [![Single Page Application with Function Proxies Architecture](https://www.azurelists.com/images/architecture202.png)](https://www.azurelists.com/images/architecture202.png)
 
-> Documentaion to follow...
+> Documentation to follow...
 
 ## Links
 
