@@ -1,0 +1,75 @@
+<div id="content"  *ngIf="list">
+    <div class="content-header">
+        <h1 class="pull-left">{{list.Name}} <small [hidden]="!isVirtual(list)"> (Virtual List)</small></h1>
+        <a [hidden]="isVirtual(list)" class="pull-right" (click)="toggleEditList()"><i class="fas fa-edit"></i></a>
+    </div>
+    <div class="content-body">
+        <!--Edit List Form -->
+      
+        <div class="list-edit" [hidden]="!editListMode">
+            <form class="form">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="Name"  [(ngModel)]="listName" />
+                </div>
+                <a class="btn btn-default btn-space pull-right" (click)="toggleEditList()"><i class="fa fa-chevron-up"></i></a>
+                <a class="btn btn-default btn-space pull-right" (click)="updateList()"><i class="fa fa-save"></i></a>
+            </form>
+            <div class="clear-fix"></div>
+            <hr />
+            <a class="btn btn-danger btn-dark pull-right" (click)="deleteList()"><i class="fas fa-trash"></i> Delete List</a>
+        </div>
+        <div class="list-view" [hidden]="editListMode">
+            <!--Add New Task Form -->
+            <form [hidden]="isVirtual(list)">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><a id="create-task" (click)="AddTask()"><i class="fas fa-plus"></i></a></span>
+                        </div>
+                            <input type="text" class="form-control" [(ngModel)]="newTask.Title" name="title" (keyup.enter)="AddTask()" placeholder="Add a to {{list.Name}} tasks..."/>
+                        <div class="input-group-append">
+                            <span class="input-group-text"><a id="create-task" (click)="toggleTaskImportant(newTask, $event)"><i class="fa fa-star " [ngClass]="{'icon-set': newTask.Important === true }"></i></a></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+             <!--List of Tasks-->
+            <div class="tasks-container">
+            
+                <a *ngFor="let task of list.Tasks | listsfilter:false" class="task" routerLink="/lists/{{list.Id}}/task/{{task.Id}}" routerLinkActive="active" >
+                    <div class="task-complete">
+                        <span (click)="toggleTaskCompleted(task, $event)" class="btn btn-default btn-xs"><i class="fa fa-check"></i></span>
+                    </div>
+                    <div class="task-body">
+                        <p class="task-title">{{task.Title}}</p>
+                        <p class="task-due">Date</p>
+                    </div>
+                    <div class="task-important">
+                        <span class="btn btn-xs btn-default" (click)="toggleTaskImportant(task, $event)" [ngClass]="{'btn-danger': task.Important === true,'btn-default': task.Important === false }"><i class="fas fa-star "></i></span>
+                    </div>
+                </a>
+                <!--Show Completed-->
+                <a class="btn btn-default btn-dark" (click)="toggleCompleted()" [hidden]="showCompleted">Show Completed</a>
+                <a class="btn btn-default btn-dark" (click)="toggleCompleted()" [hidden]="!showCompleted">Hide Completed</a>
+                <br/> 
+                <!--Completed Tasks-->
+                <div class="tasks-completed " [hidden]="!showCompleted">
+                    <a *ngFor="let task of list.Tasks | listsfilter:true" class="task" routerLink="/lists/{{list.Id}}/task/{{task.Id}}" routerLinkActive="active" >
+                        <div class="task-complete">
+                            <span (click)="toggleTaskCompleted(task, $event)" class="btn btn-default btn-xs"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="task-body">
+                            <p class="task-title">{{task.Title}}</p>
+                            <p class="task-due">Date</p>
+                        </div>
+                        <div class="task-important">
+                            <span class="btn btn-xs btn-task-important"  (click)="toggleTaskImportant(task, $event)"><span class="glyphicon glyphicon-star"></span></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+    </div> 
+  </div>
+</div>
+ <router-outlet></router-outlet>

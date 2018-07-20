@@ -1,0 +1,620 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~font-awesome/css/font-awesome.css";
+
+body {
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.btn-default, .task-edit-body .btn-default{
+   color: #fff;
+background-color: #fff;
+border-color: #ccc; 
+}
+.btn-default, .task-edit-body .btn-default .fa{
+    color: #fff;
+}
+
+.icon-set {color:#dc3545;}
+.fa {color:#444}
+.fa-bordered { border:solid 1px #ccc; padding:5px;border-radius: 3px;}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+.clear-fix {
+    clear: both;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.btn-space {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+a {
+    color: #444;
+    cursor: pointer;
+}
+
+.btn-dark {
+    background-color: #363643;
+    border-color: #2d2d37 !important;
+    color: #fff !Important;
+}
+
+    .btn-dark:hover {
+        background-color: #444;
+        color: #fff;
+    }
+
+footer {
+    padding: 5px;
+    color: #ccc;
+    background: #333;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    z-index: 10;
+}
+
+h1 {
+    margin: 5px;
+    font-size: 25px;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.list-new {
+    padding:25px 5px 5px 5px;
+}
+.wrapper {
+    display: flex;
+    align-items: stretch;
+    background: #2d2d37;
+}
+
+#wrapper #sidebar {
+    min-width: 200px;
+    max-width: 200px;
+    background: #ebebeb;
+    color: #444;
+    transition: all 0.3s;
+    float: left;
+}
+
+#wrapper.sidebar-small #sidebar {
+    min-width: 50px;
+    max-width: 50px;
+    text-align: center;
+}
+
+.sidebarCollapse, sidebarCollapse:hover {
+    text-decoration: none;
+}
+
+
+#wrapper.sidebar-small #sidebar ul.lists p {
+    display: none;
+}
+
+#wrapper.sidebar-small #sidebar .sidebar-header h3, #wrapper.sidebar-small #sidebar .CTAs {
+    display: none;
+}
+
+#wrapper.sidebar-small #sidebar .sidebar-header strong {
+    display: block;
+}
+
+#sidebar ul li a {
+    text-align: left;
+}
+
+#wrapper.sidebar-small #sidebar ul li a {
+    padding: 20px 10px;
+    text-align: center;
+    font-size: 0.85em;
+}
+
+    #wrapper.sidebar-small #sidebar ul li a i {
+        margin-right: 0;
+        display: block;
+        font-size: 1.8em;
+        margin-bottom: 5px;
+    }
+
+#wrapper.sidebar-small #sidebar ul ul a {
+    padding: 10px !important;
+}
+
+#wrapper.sidebar-small #sidebar a[aria-expanded="false"]::before, #sidebar.small a[aria-expanded="true"]::before {
+    top: auto;
+    bottom: 5px;
+    right: 50%;
+    -webkit-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+}
+
+#wrapper #sidebar .sidebar-header {
+    height: 50px;
+    padding: 5px;
+    background: #2d2d37 !important;
+}
+
+
+#sidebar .sidebar-header a {
+    color: #fff;
+    font-size: 25px;
+}
+
+.sidebar-header img {
+    width: 100px;
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: -10px;
+}
+
+#wrapper.sidebar-small #sidebar .sidebar-header img {
+    display: none;
+}
+
+#sidebar ul.lists {
+    padding: 20px 0;
+}
+
+#sidebar ul.lists p {
+   display: inline;
+}
+
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+    #sidebar ul li a i {
+        margin-right: 10px;
+    }
+
+.create-list {
+    position: fixed;
+    bottom: 2px;
+    /* And if you want the div to be full-width: */
+    left: 2px;
+    width: 196px;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR Content
+----------------------------------------------------- */
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all 0.3s;
+    /*background: #fff;*/
+    /*background-image: url('Images/bg2.jpeg');
+    background-repeat: no-repeat;*/
+    background: #ccc url('assets/Images/bg-5472.jpg') no-repeat;
+    color: #fff;
+}
+
+    #content .content-header {
+        height: 50px;
+        padding: 5px;
+        background: #363643 !important;
+        color: #fff;
+    }
+
+        #content .content-header a {
+            color: #fff;
+            font-size: 20px;
+            margin: 5px;
+        }
+
+#wrapper #content .content-body {
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+
+
+#wrapper.edit-task-collapsed #content {
+}
+
+/* ---------------------------------------------------
+    Task Content
+----------------------------------------------------- */
+#wrapper #task {
+    background: #ebebeb;
+    background: #2d2d37;
+    color: #fff;
+    max-width: 350px;
+    min-width: 350px !important;   
+    z-index: 10;
+    min-height: 100vh;
+}
+
+#ui-datepicker-div, .ui-datepicker-calendar {
+    z-index: 999 !important;
+}
+
+#wrapper.edit-task-collapsed #task {
+    display: none;
+}
+
+#task .task-edit-header {
+    min-height: 50px;
+    padding: 5px;
+    padding-top: 10px;
+    border-bottom: solid 1px #444;
+    margin-bottom: 5px;
+    clear: both;
+}
+
+    #task .task-edit-header a {
+        font-size: 15px;
+    }
+
+#task .task-edit-body {
+    padding: 15px;
+}
+#task .task-edit-body a {
+    margin-right: 5px;
+}
+
+.hideTask {
+    margin: 0px 3px;
+}
+
+#task .task-edit-body .btn-default {
+    background: #444;
+    color: #fff;
+    border-color: #333;
+    font-size: 15px;
+    padding: 5px 10px
+}
+
+    #task .task-edit-body .btn-default:hover {
+        background-color: #666;
+    }
+
+.blend {
+    user-select: none;
+    padding: 0;
+    margin: 0px 5px;
+    border: none;
+    background: #2d2d37;
+    color: #fff;
+    text-rendering: optimizeLegibility;
+    text-decoration: none;
+    width: 270px;
+}
+
+    .blend:focus {
+        border: none;
+    }
+/* ---------------------------------------------------
+    Tasks Lists
+----------------------------------------------------- */
+
+
+.tasks-container {
+    margin: 15px 0px;
+}
+
+.task {
+    padding: 15px;
+    background: #fff;
+    clear: both;
+    height: 60px;
+    box-shadow: 0 0 2px #a19f9f;
+    text-align: left;
+    margin-bottom: 4px;
+    overflow: hidden;
+    display: block;
+}
+
+    .task:hover {
+        background: #ebe9e9;
+    }
+
+.task-important {
+    display: block;
+    float: right;
+    text-align: center;
+}
+
+.task-body, .task-body:hover {
+    display: block;
+    float: left;
+    text-decoration: none;
+    text-transform: none;
+    cursor: pointer;
+}
+
+.task-title {
+    color: #7d7d8f;
+    margin-bottom: 2px;
+    font-weight: 700;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.task-due {
+    font-size: 10px;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.task-complete {
+    float: left;
+    margin-right: 15px;
+}
+
+.btn-task-complete {
+}
+
+.show-completed {
+    margin: 10px 0px;
+}
+
+.tasks-completed {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+    .tasks-completed p {
+        text-decoration: line-through;
+    }
+/* ---------------------------------------------------
+ Media Queries
+----------------------------------------------------- */
+@media (max-width: 1025px) {
+    .blend {
+        width: 160px;
+    }
+    #wrapper #content {
+        max-width: 65%
+    }
+    #wrapper.sidebar-small #content  {
+        max-width: 80%
+    }
+
+   
+
+    #wrapper #task {
+        min-width: 250px !important;
+        max-width: 250px;
+    }
+
+    #wrapper #content {
+        margin-right: -250px;
+    }
+
+    #wrapper.edit-task-collapsed #content {
+        margin-right: 0px;
+    }
+}
+
+@media (max-width: 850px) {
+    #wrapper .task-body {
+        max-width: 400px;
+    }
+
+    #wrapper #content {
+        max-width: 70%
+    }
+    #wrapper.sidebar-small #content  {
+        max-width: 90%
+    }
+
+   
+
+    #wrapper.sidebar-small .task-body {
+        max-width: 450px;
+    }
+
+    .task {
+        height: 80px;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 700px) {
+    .task {
+        height: 70px;
+        padding: 5px;
+    }
+
+    #wrapper #content  {
+        max-width: 70%
+    }
+
+    #wrapper.sidebar-small #content  {
+        max-width: 90%
+    }
+
+    #wrapper .task-body {
+        max-width: 250px;
+        overflow: hidden;
+    }
+
+    #wrapper.sidebar-small .task-body {
+        max-width: 400px;
+    }
+
+    .task-complete {
+        margin-right: 5px;
+    }
+
+    footer {
+        display: none;
+    }
+}
+
+@media (max-width: 550px) {
+
+    #wrapper #content {
+        font-size: 13px;
+    }
+
+    
+    .input-lg {
+    font-size:14px;
+    }
+
+    #wrapper.edit-task-collapsed #content {
+        display: block;
+    }
+    
+    #wrapper #content {
+        margin-left: -200px;
+        z-index: 10;
+    }
+
+        #wrapper #content  {
+            max-width: 100%
+        }
+    #wrapper.sidebar-small #content  {
+        max-width: 90%
+    }
+   
+
+    #wrapper #sidebar {
+        z-index: 11;
+    }
+
+    #wrapper.sidebar-small #content {
+        margin-left: 0px;
+    }
+
+    #wrapper .task-body {
+        max-width: 250px;
+        overflow: hidden;
+    }
+
+    #wrapper.sidebar-small .task-body {
+        max-width: 250px;
+    }
+    
+    .task {
+        height: 70px;
+        padding: 7px;
+        position: relative;
+    }
+
+    .task-complete {
+        margin-right: 5px;
+        float: none;
+        position: absolute;
+        left: 5px;
+        top: 10px;
+    }
+
+    .task-important {
+        margin-top: 0px;
+        float: left;
+        float: none;
+        position: absolute;
+        left: 5px;
+        top: 40px;
+    }
+
+    .task-body {
+        margin-top: 0px;
+        float: left;
+        float: none;
+        position: absolute;
+        left: 35px;
+        top: 5px;
+    }
+}
+
+@media (max-width: 450px) {
+    #wrapper #content {
+        max-width: 100%
+    }
+
+    #wrapper.sidebar-small #content {
+        max-width: 85%
+    }
+
+
+}
+
+
+
+
+
+    @media (max-width: 2700px) {
+        #content {
+            background-image: url('assets/Images/bg-3840.jpg');
+        }
+    }
+
+    @media (max-width: 1500px) {
+        #content {
+            background-image: url('assets/Images/bg-2560.jpg');
+        }
+    }
+
+    @media (max-width: 1000px) {
+        #content {
+            background-image: url('assets/Images/bg-1920.jpg');
+        }
+    }
+
+    @media (max-width: 700px) {
+        #content {
+            background-image: url('assets/Images/bg-1280.jpg');
+        }
+    }

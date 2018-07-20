@@ -1,0 +1,30 @@
+<div id="task" *ngIf="task">
+    <div class="task-edit-header">
+        <div class="form-group">
+            <a class="btn btn-default btn-xs pull-left" (click)="toggleTaskCompleted()"><i class="fa fa-check"></i></a>
+            <textarea rows="3" name="title" class="blend pull-left" name="title" [(ngModel)]="task.Title" (change)="updateTask()"></textarea>
+            <a (click)="toggleTaskImportant()"><i class="fas fa-star" [ngClass]="{'icon-set': task.Important === true }"></i></a>
+        </div>
+        <div class="clear-fix"></div>
+    </div>
+    <div class="task-edit-body">
+        <div class="form-group">
+            <label>Due</label>
+            <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="datePickerModel" [placeholder]="placeholder" required (ngModelChange)="onDateChanged($event)" ></my-date-picker>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFile">Notes</label>
+            <textarea name="Notes" class="form-control " name="notes" [(ngModel)]="task.Notes" (change)="updateTask()"></textarea>
+        </div>
+        <a class="btn btn-default" routerLink="/lists/{{listId}}" routerLinkActive="active" (click)="updateTask()">
+            <i class="fa fa-save"></i>
+        </a>
+        <a class="btn btn-default" routerLink="/lists/{{listId}}" routerLinkActive="active" >
+            <i class="fa fa-chevron-right"></i>
+        </a>
+        <a class="btn btn-default" (click)="deleteTask()">
+            <i class="fa fa-trash"></i>
+        </a>
+     
+    </div>
+</div>

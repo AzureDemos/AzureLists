@@ -1,0 +1,44 @@
+
+
+<!--todo check if is mobile and change css-->
+<div id="wrapper" class="wrapper {{sideBarCss}}">
+
+<!-- Sidebar Holder -->
+<nav id="sidebar" class="edit-task-collapsed">
+
+    <div class="sidebar-header">
+        <a class="sidebarCollapse" (click)="toggleSideBar()">
+            <i class="fas fa-bars"></i>
+        </a>
+        <a href="/lists"><img src="/assets/images/logo.png" /></a>
+    </div>
+
+      <!--Edit List Form -->
+    <div class="list-new" [hidden]="!newListMode">
+        <form class="form">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="New List Name" name="name" [(ngModel)]="newList.Name" />
+            </div>
+            <a class="btn btn-default btn-space pull-right" (click)="toggleNewList()"><i class="fa fa-chevron-up"></i></a>
+            <a class="btn btn-default btn-space pull-right" (click)="createList()"><i class="fa fa-save"></i></a>
+        </form>
+    </div>
+
+    <ul class="list-unstyled lists" [hidden]="newListMode">
+      <li *ngFor="let list of lists">
+          
+          <a routerLink="/lists/{{list.Id}}" routerLinkActive="active">
+            <i class="fas {{getIcon(list)}}"></i>
+            <p>{{list.Name}}</p>
+        </a>
+      </li>
+      
+    </ul>
+    <a class="create-list btn btn-primary btn-dark " (click)="toggleNewList()"><i class="fas fa-plus"></i> Create New List</a>
+    
+</nav>
+    <router-outlet></router-outlet>
+</div>
+
+
+
