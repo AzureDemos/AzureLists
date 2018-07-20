@@ -60,7 +60,7 @@ Based off our assumptions, we have chosen to go with option two and store the ta
 The [101 example](https://azurelists.azurewebsites.net/architectures/app-services-with-sql-db) covers the specifics of running the website and API both locally and deploying to Azure App Service. The only difference in this example is the config options for Table Storage. 
 
 ### Local Development
-For local development you can use the [Azure Storage Emulator] (https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator) and set the 'StorageConnectionString' app setting in the web config to equal 'UseDevelopmentStorage=true;'
+For local development you can use the [Azure Storage Emulator](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator) and set the 'StorageConnectionString' app setting in the web config to equal 'UseDevelopmentStorage=true;'
 
 The code creates the tables and partitions, so nothing needs to be created before running the application. 
 
