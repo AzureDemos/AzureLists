@@ -72,7 +72,7 @@ To connect the API to Azure Table storage, simply create a storage account and t
 
 | Create Storage Account | Storage Account Connection String |
 | --- | ---	|
-| [![Create Storage Account](https://www.azurelists.com/images/create-storage-account.png)](https://www.azurelists.com/images/AppInsights.png) | [![Get Connection String](https://www.azurelists.com/images/StoageAccountConnectionString.png)](https://www.azurelists.com/images/AppInsightsQuery.png) |
+| [![Create Storage Account](https://www.azurelists.com/images/create-storage-account.png)](https://www.azurelists.com/images/create-storage-account.png) | [![Get Connection String](https://www.azurelists.com/images/StoageAccountConnectionString.png)](https://www.azurelists.com/images/StoageAccountConnectionString.png) |
 
 ## Links
 
