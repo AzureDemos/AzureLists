@@ -28,7 +28,7 @@
       <li *ngFor="let list of lists">
           
           <a routerLink="/lists/{{list.Id}}" routerLinkActive="active">
-            <i class="fas {{getIcon(list)}}"></i>
+            <i class="fa {{getIcon(list)}}"></i>
             <p>{{list.Name}}</p>
         </a>
       </li>

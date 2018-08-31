@@ -45,10 +45,12 @@ border-color: #ccc;
     color: #fff;
 }
 
-.icon-set {color:#dc3545;}
+
 .fa {color:#444}
 .fa-bordered { border:solid 1px #ccc; padding:5px;border-radius: 3px;}
+.btn-danger .fa, .content-header .fa {color: #fff;}
 
+.icon-set {color:#dc3545;}
 /* Set width on the form input elements since they're 100% wide by default */
 /*input,
 select,

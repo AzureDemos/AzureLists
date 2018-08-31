@@ -166,8 +166,8 @@ namespace AzureLists.TableStorage
         /// <summary>
         /// We cannot get a task directly without loading the list unless we stored the tasks in a seperate table. 
         /// The API however requires us to search tasks by due date or whether they are important. 
-        /// Even if we used a seperate table, this would still be a tricky task for table storage, without the use of additional index tables.
-        /// Therefore we have not split tasks into a seperate table. This is not very performant if a user has a lot of lists, so the right choice it really depends on how we think the lists will be used by the users. 
+        /// Even if we used a seperate table, this would require us to use a 'Partition Scan Query' which is not as performant as partition and rowkey queries
+        /// Therefore we have not split tasks into a seperate table. This is also not very performant if a user has a lot of lists, so the right choice it really depends on how we think the lists will be used by the users. 
         /// These demos are created to discus the pro and cons of different database in Azure, and therefore these performance considerations are a design choice for a specific use case
         /// </summary>
         private async Task<Tuple<Library.List, Library.Task>> GetListAndTaskByTaskId(string id)

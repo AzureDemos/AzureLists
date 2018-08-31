@@ -3,7 +3,7 @@
         <div class="form-group">
             <a class="btn btn-default btn-xs pull-left" (click)="toggleTaskCompleted()"><i class="fa fa-check"></i></a>
             <textarea rows="3" name="title" class="blend pull-left" name="title" [(ngModel)]="task.Title" (change)="updateTask()"></textarea>
-            <a (click)="toggleTaskImportant()"><i class="fas fa-star" [ngClass]="{'icon-set': task.Important === true }"></i></a>
+            <a (click)="toggleTaskImportant()"><i class="fa fa-star" [ngClass]="{'icon-set': task.Important === true }"></i></a>
         </div>
         <div class="clear-fix"></div>
     </div>
