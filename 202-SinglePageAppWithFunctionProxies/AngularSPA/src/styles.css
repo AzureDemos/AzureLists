@@ -245,7 +245,7 @@ h1 {
     /*background: #fff;*/
     /*background-image: url('Images/bg2.jpeg');
     background-repeat: no-repeat;*/
-    background: #ccc url('assets/Images/bg-5472.jpg') no-repeat;
+    background: #ccc url('/assets/images/bg-5472.jpg') no-repeat;
     color: #fff;
 }
 
@@ -599,24 +599,24 @@ h1 {
 
     @media (max-width: 2700px) {
         #content {
-            background-image: url('assets/Images/bg-3840.jpg');
+            background-image: url('/assets/images/bg-3840.jpg');
         }
     }
 
     @media (max-width: 1500px) {
         #content {
-            background-image: url('assets/Images/bg-2560.jpg');
+            background-image: url('/assets/images/bg-2560.jpg');
         }
     }
 
     @media (max-width: 1000px) {
         #content {
-            background-image: url('assets/Images/bg-1920.jpg');
+            background-image: url('/assets/images/bg-1920.jpg');
         }
     }
 
     @media (max-width: 700px) {
         #content {
-            background-image: url('assets/Images/bg-1280.jpg');
+            background-image: url('/assets/images/bg-1280.jpg');
         }
     }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SwUpdate } from '@angular/service-worker';
 
 @Component({
   selector: 'az-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'az';
+
+  constructor(updates: SwUpdate){
+    updates.available.subscribe(event => {
+      updates.activateUpdate().then(() => document.location.reload());
+    })
+  }
 }

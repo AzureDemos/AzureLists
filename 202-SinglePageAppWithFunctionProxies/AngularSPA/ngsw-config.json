@@ -1,0 +1,38 @@
+{
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    }, {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**"
+        ]
+      }
+    }
+  ],
+  "dataGroups" : [
+    {
+      "name": "azurelistsapi",
+      "urls": ["https://azurelistsapi.azurewebsites.net/**"],
+      "cacheConfig": {
+        "startegy": "freshness",
+        "maxSize": 40,
+        "maxAge": "5d",
+        "timeout": "5s"
+      }
+    }
+  ]
+}

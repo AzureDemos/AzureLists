@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { ListsmodModule } from './listsmod/listsmod.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MyDatePickerModule } from 'mydatepicker';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     HttpClientModule,
     AppRoutingModule,
     ListsmodModule,
-    MyDatePickerModule 
+    MyDatePickerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }) 
   ],
   providers: [
     

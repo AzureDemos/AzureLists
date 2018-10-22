@@ -24,6 +24,7 @@ export class ListsComponent implements OnInit {
     this.listService.getLists().subscribe(data => {
       this.bindNewList();
       this.lists = data
+      
       if (!this.route.firstChild) {
         this.router.navigate(['/lists', this.lists[0].Id]);
       }

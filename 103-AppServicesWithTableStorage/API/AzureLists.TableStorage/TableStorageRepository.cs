@@ -44,15 +44,15 @@ namespace AzureLists.TableStorage
             CloudStorageAccount storageAccount = CreateStorageAccountFromConnectionString(this.connectionString);
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference(tableName);
-            try
-            {
+          //  try
+           // {
                 await table.CreateIfNotExistsAsync();
-            }
-            catch (StorageException)
-            {
+          //  }
+          //  catch (StorageException)
+         //   {
                 //log error here
-                throw;
-            }
+              //  throw;
+          //  }
             return table;
         }
 

@@ -95,6 +95,9 @@ namespace AzureLists.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         public async Task<IHttpActionResult> PostTask(string listId, Library.Task task)
         {
+
+            if (task.Title.ToLower().Contains("aws"))
+                throw new System.Exception("Someone tried to join aws");
             Library.Task t = await this.listService.AddTaskToList(listId,task);
             return this.Created($"api/lists/{listId}/tasks/{t.Id}", t);
         }
